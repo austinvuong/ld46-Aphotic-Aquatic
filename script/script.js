@@ -1,5 +1,6 @@
 var buttons = [];
 var response; // text
+var badResponse = "No.";
 
 $(document).ready(function(){
 
@@ -42,7 +43,8 @@ function shuffle() {
 		b.innerHTML = "Wrong";
 		b.classList.add("w3-red");
 		b.onclick = function() {
-			response.innerHTML = "No.";
+			badResponse += "&#9608";
+			response.innerHTML = badResponse;
 		};
 	}
 	
