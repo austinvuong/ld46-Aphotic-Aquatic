@@ -1,3 +1,3 @@
-function onLoad() {
-	
-}
+$(document).ready(function(){
+	alert("jquery");
+});
