@@ -16,8 +16,8 @@ var AnswerType = {
 	NULL: 0,
 	FISH: 1,
 	
-	properties: {
-		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]}
+	items: {
+		1: {["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]}
 	}
 };
 
@@ -152,7 +152,7 @@ function shuffle() {
 // Returns a random item from the AnswerType enum
 // Precon: the list must contain an item not in the exclusion
 function getRandomOfType(type, exclude) {
-	return getRandomFrom(AnswerType.properties[type].items, exclude);
+	return getRandomFrom(AnswerType.items[type], exclude);
 }
 
 // Returns a random item from the list not in exclusion
