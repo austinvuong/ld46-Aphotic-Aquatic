@@ -1,21 +1,53 @@
 var buttons = [];
-var response; // text
+var questionText;
+var responseText; // text
 var badResponse = "No.";
 
-var items = ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"];
-var chosenItem; // Should be in items
+var questions = []; // Only contain Question objects
 
+// TEMPs
+var tempflag = true;
+var qCounter = 0;
+var fixedQ = ["What am I?", "Who am I?", "What was I?", "What will I become?", "What will create me?"];
+var lastQuestion;
+
+// Answer types
+var AnswerType = {
+	NULL: 0,
+	FISH: 1,
+	
+	properties: {
+		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]}
+	}
+};
+
+// Question object
+function Question(question, answer, answerType) {
+	this.question = question;
+	this.answer = answer;
+	this.answerType = answerType;
+}
+
+// Init
 $(document).ready(function(){
+	
+	// TEMP append question text
+	questionText = document.createElement("h2");
+	questionText.innerHTML = "Question Text";
+	$("body").append(questionText);
 
 	// append buttons
 	for (var i = 0; i < 4; i++) {
 
 		var button = document.createElement("button");
 		button.type = "button";
+		
+		// TEMP
 		button.innerHTML = "Button #" + i;
 		var cl = button.classList;
 		cl.add("w3-btn");
 		cl.add("w3-xlarge");
+		cl.add("w3-blue");
 		
 		button.onclick = function() {
 			alert("I am " + this.innerHTML);
@@ -27,9 +59,9 @@ $(document).ready(function(){
 	}
 	
 	// TEMP append response text
-	response = document.createElement("h3");
-	response.innerHTML = "Response Text";
-	$("body").append(response);
+	responseText = document.createElement("h3");
+	responseText.innerHTML = "Response Text";
+	$("body").append(responseText);
 	
 	firstTime();
 	
@@ -38,55 +70,90 @@ $(document).ready(function(){
 function firstTime() {
 	var b; // button
 	var exclusion = [];
+	var question = fixedQ[qCounter];
+	var answer; // to be selected
+	var answerType = AnswerType.FISH;
+
+	questionText.innerHTML = question;
 	
 	for (var i = 0; i < 4; i++) {
 		b = buttons[i];
 		
-		var item = getRandomFrom(items, exclusion);
+		var item = getRandomOfType(answerType, exclusion);
 		exclusion.push(item);
 		
 		b.innerHTML = item;
-		b.classList.add("w3-blue");
-		
+
 		b.onclick = function() {
-			chosenItem = this.innerHTML;
-			response.innerHTML = chosenItem + " it is then.";
-			shuffle();
+			answer = this.innerHTML;
+			responseText.innerHTML = answer + " it is then.";
+			questions.push(new Question(question, answer, answerType));
+			if (tempflag && qCounter < fixedQ.length)
+			{
+				tempflag = false;
+				console.log("New question");
+				firstTime();
+			} else {
+				tempflag = true;
+				shuffle();
+			}
 		};
 	}
+	
+	qCounter++;
 }
 
 function shuffle() {
 	
 	var b; // button
-	var item;
-	var exclusion = [chosenItem];
+	var question = getRandomFrom(questions, [lastQuestion]); // TEMP
+	var exclusion = [question.answer];
+	
+	questionText.innerHTML = question.question;
 
-	// make everything the incorrect answer
+	// set everything an incorrect answer
 	for (var i = 0; i < 4; i++) {
 		b = buttons[i];
-		item = getRandomFrom(items, exclusion);
+		var item = getRandomOfType(question.answerType, exclusion);
 		exclusion.push(item);
 		
 		b.innerHTML = item;
 
 		b.onclick = function() {
+			// TEMP
 			badResponse += "&#9608";
-			response.innerHTML = badResponse;
+			responseText.innerHTML = badResponse;
 		};
 	}
 	
 	// set one to the correct answer
 	b = buttons[randInt(0, 4)];
-	b.innerHTML = chosenItem;
+	b.innerHTML = question.answer;
 
 	b.onclick = function() {
-		response.innerHTML = "Hurray!";
-		shuffle();
+		responseText.innerHTML = "Hurray!";
+		if (tempflag && qCounter < fixedQ.length) {
+			tempflag = false;
+			console.log("New question");
+			firstTime();
+		} else {
+			tempflag = true;
+			shuffle();
+		}
+		
 	};
+	
+	lastQuestion = question;
+	console.log(lastQuestion);
 }
 
 // Helpers
+
+// Returns a random item from the AnswerType enum
+// Precon: the list must contain an item not in the exclusion
+function getRandomOfType(type, exclude) {
+	return getRandomFrom(AnswerType.properties[type].items, exclude);
+}
 
 // Returns a random item from the list not in exclusion
 // Precon: the list must contain an item not in the exclusion
@@ -96,8 +163,8 @@ function getRandomFrom(list, exclude) {
 	// DEBUG
 	if (exclude.length >= list.length) {
 		console.log("Warning: given list is not smaller than the exclusion");
-		console.log(exclude);
 		console.log(list);
+		console.log(exclude);
 	}
 	
 	do {
