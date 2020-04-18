@@ -2,6 +2,9 @@ var buttons = [];
 var response; // text
 var badResponse = "No.";
 
+var items = ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"];
+var chosenItem; // Should be in items
+
 $(document).ready(function(){
 
 	// append buttons
@@ -28,20 +31,45 @@ $(document).ready(function(){
 	response.innerHTML = "Response Text";
 	$("body").append(response);
 	
-	shuffle();
+	firstTime();
 	
 });
+
+function firstTime() {
+	var b; // button
+	var exclusion = [];
+	
+	for (var i = 0; i < 4; i++) {
+		b = buttons[i];
+		
+		var item = getRandomFrom(items, exclusion);
+		exclusion.push(item);
+		
+		b.innerHTML = item;
+		b.classList.add("w3-blue");
+		
+		b.onclick = function() {
+			chosenItem = this.innerHTML;
+			response.innerHTML = chosenItem + " it is then.";
+			shuffle();
+		};
+	}
+}
 
 function shuffle() {
 	
 	var b; // button
+	var item;
+	var exclusion = [chosenItem];
 
 	// make everything the incorrect answer
 	for (var i = 0; i < 4; i++) {
 		b = buttons[i];
+		item = getRandomFrom(items, exclusion);
+		exclusion.push(item);
 		
-		b.innerHTML = "Wrong";
-		b.classList.add("w3-red");
+		b.innerHTML = item;
+
 		b.onclick = function() {
 			badResponse += "&#9608";
 			response.innerHTML = badResponse;
@@ -49,12 +77,37 @@ function shuffle() {
 	}
 	
 	// set one to the correct answer
-	b = buttons[Math.floor((Math.random() * 4))];
-	b.innerHTML = "CLICK ME!!!";
-	b.classList.remove("w3-red");
-	b.classList.add("w3-green");
+	b = buttons[randInt(0, 4)];
+	b.innerHTML = chosenItem;
+
 	b.onclick = function() {
 		response.innerHTML = "Hurray!";
 		shuffle();
 	};
+}
+
+// Helpers
+
+// Returns a random item from the list not in exclusion
+// Precon: the list must contain an item not in the exclusion
+function getRandomFrom(list, exclude) {
+	var item;
+	
+	// DEBUG
+	if (exclude.length >= list.length) {
+		console.log("Warning: given list is not smaller than the exclusion");
+		console.log(exclude);
+		console.log(list);
+	}
+	
+	do {
+		item = list[randInt(0, list.length)];
+	} while (exclude.includes(item));
+	
+	return item;
+}
+
+// Returns an integer in [min, max)
+function randInt(min, max) {
+	return Math.floor((Math.random() * max)) + min;
 }
