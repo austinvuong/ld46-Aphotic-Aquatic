@@ -1,4 +1,5 @@
 var buttons = [];
+var response; // text
 
 $(document).ready(function(){
 
@@ -21,6 +22,11 @@ $(document).ready(function(){
 		buttons.push(button);
 	}
 	
+	// TEMP append response text
+	response = document.createElement("h3");
+	response.innerHTML = "Response Text";
+	$("body").append(response);
+	
 	shuffle();
 	
 });
@@ -36,7 +42,7 @@ function shuffle() {
 		b.innerHTML = "Wrong";
 		b.classList.add("w3-red");
 		b.onclick = function() {
-			alert("But ... I said \"wrong\"!");
+			response.innerHTML = "No.";
 		};
 	}
 	
@@ -46,7 +52,7 @@ function shuffle() {
 	b.classList.remove("w3-red");
 	b.classList.add("w3-green");
 	b.onclick = function() {
-		alert("Hurray!");
+		response.innerHTML = "Hurray!";
 		shuffle();
 	};
 }
