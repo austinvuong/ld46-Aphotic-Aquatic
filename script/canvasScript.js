@@ -8,7 +8,6 @@ var Scene = {
 	}
 }
 
-
 $(document).ready(function(){
 	stage = new createjs.Stage("gameCanvas");
 	
