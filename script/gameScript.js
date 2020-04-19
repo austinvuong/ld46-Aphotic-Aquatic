@@ -75,7 +75,7 @@ $(document).ready(function(){
 	$("#button-grid").after(responseTextHTML);
 	
 	newQuestion();
-	
+
 });
 
 function newQuestion() {
@@ -99,21 +99,17 @@ function newQuestion() {
 		b.innerHTML = item;
 
 		b.onclick = function() {
+			// Store the response
+			q.answer = this.innerHTML;
+			activeQuestions.push(q);
+			
+			// TEMP? show the response
+			responseTextHTML.innerHTML = q.answer + " it is then. On to the next day. Day " + currentDay;
+			
 			// Advance to the next day
 			currentDay++;
 			$("#idDay").text("The day " + currentDay);
 			answeredQuestions = [];
-			
-			// TEMP ?
-			answer = this.innerHTML;
-			responseTextHTML.innerHTML = answer + " it is then. On to the next day. Day " + currentDay;
-			
-			q.answer = b.innerHTML;
-			
-			// EDIT
-			activeQuestions.push(q);
-			
-			console.log(activeQuestions);
 			
 			nextQuestion();
 		};
