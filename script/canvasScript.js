@@ -8,9 +8,9 @@ var Scene = {
 	
 	img: {
 		0: new createjs.Bitmap("res/img/testimg.png"),
-		1: new createjs.Bitmap("res/img/room.png")
-		2: new createjs.Bitmap("res/img/fish00.png")
-		3: new createjs.Bitmap("res/img/fish01.png")
+		1: new createjs.Bitmap("res/img/room.png"),
+		2: new createjs.Bitmap("res/img/fish00.png"),
+		3: new createjs.Bitmap("res/img/fish01.png"),
 		4: new createjs.Bitmap("res/img/fish02.png")
 	}
 }
