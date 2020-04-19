@@ -4,7 +4,8 @@ var Scene = {
 	OFFICE: 1,
 	
 	img: {
-		1: new createjs.Bitmap("res/img/sample-office.png")
+		//1: new createjs.Bitmap("res/img/sample-office.png")
+		1: new createjs.Bitmap("https://upload.wikimedia.org/wikipedia/commons/7/71/Pixelart-tv-iso-2.png")
 	}
 }
 
@@ -19,8 +20,8 @@ $(document).ready(function(){
 	
 	var img = Scene.img[Scene.OFFICE];
 	
-	img.x = -32;
-	img.y = -64;
+	img.x = 8;
+	img.y = 0;
 		
 	stage.addChild(img);
 	console.log(stage);
