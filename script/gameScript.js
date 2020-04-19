@@ -31,29 +31,27 @@ function Question(question, answer, answerType) {
 // Init
 $(document).ready(function(){
 	
-	// TEMP append question text
+	// TEMP question text
 	questionText = document.createElement("h2");
 	questionText.innerHTML = "Question Text";
-	$("body").append(questionText);
+	$("#button-grid").before(questionText);
 
-	// append buttons
+	// append buttons	
 	for (var i = 0; i < 4; i++) {
+		var gridItem = document.createElement("div");
+		gridItem.classList.add("grid-item");
 
 		var button = document.createElement("button");
 		button.type = "button";
 		
-		// TEMP
-		button.innerHTML = "Button #" + i;
 		var cl = button.classList;
 		cl.add("w3-btn");
 		cl.add("w3-xlarge");
-		cl.add("w3-blue");
+		cl.add("w3-gray");
+		cl.add("answer-button");
 		
-		button.onclick = function() {
-			alert("I am " + this.innerHTML);
-		};
-		
-		$("body").append(button);
+		gridItem.append(button);
+		$("#button-grid").append(gridItem);
 		
 		buttons.push(button);
 	}
@@ -61,7 +59,7 @@ $(document).ready(function(){
 	// TEMP append response text
 	responseText = document.createElement("h3");
 	responseText.innerHTML = "Response Text";
-	$("body").append(responseText);
+	$("#button-grid").after(responseText);
 	
 	firstTime();
 	
