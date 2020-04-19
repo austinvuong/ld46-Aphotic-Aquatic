@@ -7,6 +7,13 @@
   align-items: center;
 }
 
+body {
+  position: fixed; 
+  overflow-y: scroll;
+  overflow: hidden;
+  width: 100%;
+}
+
 #top-container {
   width: 100%;
   max-width: 500px;
@@ -54,4 +61,34 @@ canvas, img {
   height: 130px;
   white-space: normal;
   word-wrap: break-word;
+}
+
+.slidein {
+  animation-name: slidein;
+  animation-duration: 500ms;  animation-timing-function: ease-out;
+}
+
+.slideout {
+  animation-name: slideout;
+  animation-duration: 500ms;  animation-timing-function: ease-out;
+}
+
+@keyframes slidein {
+  from {
+    margin-top: 100%;
+  }
+
+  to {
+    margin-top: 0%;
+  }
+}
+
+@keyframes slideout {
+  from {
+    margin-top: 0%;
+  }
+
+  to {
+    margin-top: 100%;
+  }
 }

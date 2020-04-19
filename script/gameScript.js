@@ -107,13 +107,30 @@ function newQuestion() {
 			responseTextHTML.innerHTML = q.answer + " it is then. On to the next day. Day " + currentDay;
 			
 			// Advance to the next day
-			currentDay++;
-			$("#idDay").text("The day " + currentDay);
-			answeredQuestions = [];
-			
-			nextQuestion();
+			nextDay();
 		};
 	}
+}
+
+function canvasClick() {
+	// TODO wait for canvas sometimes to adv
+	
+	// TEMP
+	
+}
+
+function nextDay() {
+	currentDay++;
+	$("#day-display").text("Day " + currentDay);
+	answeredQuestions = [];
+	
+	setSceneTo(Scene.OFFICE);
+	
+	// TODO Hide buttons, show some expo text
+	$("#gameButtons").removeClass("slidein");
+	$("#gameButtons").addClass("slideout");
+	
+	nextQuestion();
 }
 
 function nextQuestion() {

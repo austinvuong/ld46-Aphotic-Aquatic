@@ -14,7 +14,9 @@ var Scene = {
 		4: new createjs.Bitmap("res/img/fish02.png")
 	}
 }
+
 var currentImage;
+var prevImage;
 
 $(document).ready(function(){
 	stage = new createjs.Stage("gameCanvas");
@@ -26,14 +28,26 @@ $(document).ready(function(){
 	}
 	
 	currentImage = Scene.img[Scene.NULL];
-		
 	stage.addChild(currentImage);
 	
 	stage.update();
 });
 
 function setSceneTo(scene) {
-	stage.removeChild(currentImage);
+	// TEMP
+	if (currentImage == Scene.img[scene]) {
+		return;
+	}
+	
+	// TODO nicer ease
+	prevImage = currentImage;
+	createjs.Tween.get(prevImage).to({alpha: 0}, 300).call(removePrev, {}, this);
+	
 	currentImage = Scene.img[scene];
-	stage.addChild(currentImage);
+	stage.addChildAt(currentImage, 1);
+	currentImage.alpha = 1;
+}
+
+function removePrev(tween) {
+	stage.removeChild(prevImage);
 }
