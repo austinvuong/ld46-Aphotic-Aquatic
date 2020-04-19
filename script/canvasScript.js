@@ -2,12 +2,19 @@ var stage;
 var Scene = {
 	NULL: 0,
 	OFFICE: 1,
+	FISH00: 2,
+	FISH01: 3,
+	FISH02: 4,
 	
 	img: {
-		//1: new createjs.Bitmap("res/img/sample-office.png")
-		1: new createjs.Bitmap("https://upload.wikimedia.org/wikipedia/commons/7/71/Pixelart-tv-iso-2.png")
+		0: new createjs.Bitmap("res/img/testimg.png"),
+		1: new createjs.Bitmap("res/img/room.png")
+		2: new createjs.Bitmap("res/img/fish00.png")
+		3: new createjs.Bitmap("res/img/fish01.png")
+		4: new createjs.Bitmap("res/img/fish02.png")
 	}
 }
+var currentImage;
 
 $(document).ready(function(){
 	stage = new createjs.Stage("gameCanvas");
@@ -18,13 +25,15 @@ $(document).ready(function(){
 		stage.update(event);
 	}
 	
-	var img = Scene.img[Scene.OFFICE];
-	
-	img.x = 8;
-	img.y = 0;
+	currentImage = Scene.img[Scene.NULL];
 		
-	stage.addChild(img);
-	console.log(stage);
-
+	stage.addChild(currentImage);
+	
 	stage.update();
 });
+
+function setSceneTo(scene) {
+	stage.removeChild(currentImage);
+	currentImage = Scene.img[scene];
+	stage.addChild(currentImage);
+}
