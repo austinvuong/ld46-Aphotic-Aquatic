@@ -9,6 +9,14 @@ let answeredCards = [];
 
 let lastCard; // used to prevent immediate repeats
 
+let hasReachedDarkness = false; // has gotten to any THOUGHT card
+
+// Timer bar
+let progress;
+let interval;
+let timerRate = 0.1;
+let timerRateInc = 0.01;
+
 // Answer types
 let AnswerType = {
 	NULL: 0,
@@ -16,6 +24,7 @@ let AnswerType = {
 	FISH_FOOD: 2,
 	THOUGHT: 3,
   ACCEPT: 4,
+  OOPS: 5, // for dead fish
 	
 	properties: {
 		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]},
@@ -24,7 +33,9 @@ let AnswerType = {
 		
 		3: {items: ["Tranquility", "Calamity", "Serenity", "Ruin", "Annihilation", "Bliss"]},
     
-    4: {items: ["Okay.", "Okay..", "Okay...", "Okay....",]}
+    4: {items: ["Okay.", "Okay..", "Okay...", "Okay....",]},
+    
+    5: {items: ["Oops.", "Oops..", "Oops...", "Oops....",]}
 	}
 };
 
@@ -79,6 +90,7 @@ function newCards(count) {
   
 	$("#question-text").html("Oh this is new . . . " + q.cardText);
 	setImageTo(q.scene);
+  startTimer();
   
   for (let i = 0; i < 4; i++) {
     
@@ -96,6 +108,10 @@ function newCards(count) {
       // ignore ACCEPT cards, they're for story stuffs
       if (q.answerType != AnswerType.ACCEPT) {
         activeCards.push(q);
+      }
+      
+      if (q.answerType == AnswerType.THOUGHT) {
+        hasReachedDarkness = true;
       }
       
       // TEMP? show the response
@@ -124,6 +140,7 @@ function nextCard() {
 	
 	$("#question-text").html(q.cardText);
 	setImageTo(q.scene);
+  startTimer();
   
   setButtonForNextCard(q);
 }
@@ -145,29 +162,66 @@ function setButtonForNextCard(q) {
 			// TEMP
 			badResponse += "&#9608";
 			$("#response-text").html(badResponse);
+      
+      // If seen the wall, allow fish to be killed
+      if (hasReachedDarkness) {
+        q.cardText = "Oh . . . it's dead."
+        q.answerType = AnswerType.OOPS;
+        // TODO dimmed static image?
+        
+        $("#response-text").html("I fed it " + this.value + ". . . I forgot it only eats " + q.answer + " . . . did I kill it?");
+        nextCard();
+      } else {
+        // TEMP you're fired!
+        console.log("You fed it " + this.value + "?! It only eats " + q.answer + "!! You're fired!");
+      }
+      
 		};
 	}
 	
-	// set one to the correct answer
-	b = buttons[0][randInt(0, 4)];
-	b.value = q.answer;
+  if (q.answerType != AnswerType.OOPS) {
+    // set one to the correct answer
+    b = buttons[0][randInt(0, 4)];
+    b.value = q.answer;
 
-	b.onclick = function() {
-		$("#response-text").html("Right it was " + q.answer);
-		
-		// add this q to the list
-		answeredCards.push(q);
-    lastCard = q;
-    $("#lower").toggleClass("transparent");
-		
-		// if all active q's done, add a new one
-		if (answeredCards.length == activeCards.length) {
-			newCards(2); // the "new fish" + the actual fish
-		} else {
-			nextCard();
-		}
-	}
+    b.onclick = function() {
+      $("#response-text").html("Right it was " + q.answer);
+      
+      // add this q to the list
+      answeredCards.push(q);
+      lastCard = q;
+      $("#lower").toggleClass("transparent");
+      
+      // if all active q's done, add a new one
+      if (answeredCards.length == activeCards.length) {
+        newCards(2); // the "new fish" + the actual fish
+      } else {
+        nextCard();
+      }
+    }
+  }
+
   
+}
+
+// Timer bar
+function startTimer() {
+  clearInterval(interval);
+  timerRate += timerRateInc;
+  
+  var elem = document.getElementById("timerBar");   
+  progress = 100;
+  interval = setInterval(frame, 10);
+  function frame() {
+    if (progress < 0) {
+      clearInterval(interval);
+      // TODO
+      alert("You are fired and/or fried!");
+    } else {
+      progress -= timerRate; 
+      elem.style.width = progress + '%'; 
+    }
+  }
 }
 
 // Helpers
