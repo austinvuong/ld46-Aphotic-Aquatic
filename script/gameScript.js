@@ -113,8 +113,6 @@ function newCards(count) {
 	let q = deck.shift();
   
   // TEMP
-  console.log(q);
-    console.log(Image.ROOM0);
 	$("#question-text").html("%NEWCARD " + q.cardText);
 	setImageTo(q.img);
   
