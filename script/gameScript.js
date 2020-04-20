@@ -58,31 +58,27 @@ function newQuestion() {
 	$("#question-text").html(q.questionText);
 	setSceneTo(q.scene);
   
-  $("#lower").removeClass("shown");
-  setTimeout(function() { $("#lower").addClass("shown"); }, fadeDelay);
-  setTimeout(function() { 
-    for (var i = 0; i < 4; i++) {
-      
-      b = buttons[0][i];
+  for (var i = 0; i < 4; i++) {
+    
+    b = buttons[0][i];
 
-      var item = getRandomOfType(q.answerType, exclusion);
-      exclusion.push(item);
-      
-      b.value = item;
+    var item = getRandomOfType(q.answerType, exclusion);
+    exclusion.push(item);
+    
+    b.value = item;
 
-      b.onclick = function() {
-        // Store the response
-        q.answer = this.value;
-        activeQuestions.push(q);
-        
-        // TEMP? show the response
-        $("#response-text").html(q.answer + " it is then. On to the next day. Day " + currentDay);
-        
-        // Advance to the next day
-        nextDay();
-      };
-    }
-  }, swapTextDelay);
+    b.onclick = function() {
+      // Store the response
+      q.answer = this.value;
+      activeQuestions.push(q);
+      
+      // TEMP? show the response
+      $("#response-text").html(q.answer + " it is then. On to the next day. Day " + currentDay);
+      
+      // Advance to the next day
+      nextDay();
+    };
+  }
 }
 
 function nextDay() {
@@ -99,12 +95,10 @@ function nextQuestion() {
 
 	var q = getRandomFrom(activeQuestions, answeredQuestions);
 	
-  $(".fade-transition").removeClass("fade-in");
-  setTimeout(function() { $("#lower").addClass("shown"); }, fadeDelay);
-  setTimeout(function() { 
-	
 	$("#question-text").html(q.questionText);
 	setSceneTo(q.scene);
+  
+  setButtonForNextQuestion(q);
 }
 
 // q - the question to build from
@@ -144,9 +138,8 @@ function setButtonForNextQuestion(q) {
 		} else {
 			nextQuestion();
 		}
-	};
+	}
   
-  }, swapTextDelay);
 }
 
 // Helpers
