@@ -64,7 +64,7 @@ function newCards(count) {
 	
 	let q = deck.shift();
   
-	$("#question-text").html(q.questionText);
+	$("#question-text").html("Oh this is new . . . " + q.questionText);
 	setImageTo(q.scene);
   
   for (let i = 0; i < 4; i++) {
