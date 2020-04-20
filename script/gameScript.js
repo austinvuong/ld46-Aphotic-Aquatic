@@ -227,6 +227,7 @@ function startTimer(rate) {
   interval = setInterval(frame, 10);
   function frame() {
     if (progress < -5) { // a little coyote time
+      $("#timerBar").width(progress + "%"); // force it (in case of progress jumps)
       clearInterval(interval);
       // TODO
       alert("You are fired and/or fried!");
