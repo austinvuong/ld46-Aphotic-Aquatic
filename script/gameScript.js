@@ -138,6 +138,9 @@ function newCards(count) {
     b.onclick = function() {
       // Store the response
       q.answer = this.value;
+      
+      //TEMP
+      play();
 
       // handle story cards
       if (q.answerType == AnswerType.STORY) {
@@ -145,6 +148,7 @@ function newCards(count) {
         // don't put them in the hand
       } else {
         $("#response-text").html(`<i>${q.answer} it is then.</i>`);
+        playRandomBloop();
         activeCards.push(q);
         count--; // only if the card is not story
       }
@@ -197,6 +201,7 @@ function setButtonForNextCard(q) {
 		b.onclick = function() {
       let ansLower = this.value.toLowerCase();
 			$("#response-text").html(`<i>\"Hmm, it wasn't ${ansLower}.\"<\i>`);
+      shake($("#response-text"), 50);
       shake($("#timerBarContainer"), 100);
       progress /= 1.4; // the less time, the less the penalty
       
@@ -224,6 +229,7 @@ function setButtonForNextCard(q) {
     b.onclick = function() {
       let ansLower = q.answer.toLowerCase();
       $("#response-text").html(`<i>"Right, it was ${ansLower}."</i>`);
+      playRandomBloop();
       
       // add this q to the list
       answeredCards.push(q);
