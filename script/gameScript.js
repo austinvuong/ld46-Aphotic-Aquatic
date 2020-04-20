@@ -1,16 +1,14 @@
 const fadeDelay = 400;
 const swapTextDelay = 500;
 
-var buttons = [];
-var badResponse = "No.";
+let buttons = [];
+let badResponse = "No.";
 
-var activeQuestions = []; // active questions
-var answeredQuestions = []; // questions answered today
-
-var currentDay = 1; // also the max tasks per day
+let activeCards = [];
+let answeredCards = [];
 
 // Answer types
-var AnswerType = {
+let AnswerType = {
 	NULL: 0,
 	FISH: 1,
 	FISH_FOOD: 2,
@@ -25,15 +23,17 @@ var AnswerType = {
 	}
 };
 
-const QUESTION_ARRAY = [
-	new Question("What did I need to feed Goldie?", AnswerType.FISH_FOOD, Scene.FISH00),
-	new Question("What did Steve's fish eat?", AnswerType.FISH_FOOD, Scene.FISH01),
-	new Question("What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?", AnswerType.FISH_FOOD, Scene.FISH02),
-	new Question("Imagine", AnswerType.THOUGHT, Scene.NULL),
+let newCards = [
+	new Card("What did I need to feed Goldie?", AnswerType.FISH_FOOD, Image.GOLDIE),
+	new Card("What did Steve's fish eat?", AnswerType.FISH_FOOD, Image.ANGEL),
+	new Card("What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?", AnswerType.FISH_FOOD, Image.SEAHORSE),
+  new Card("What jelly want?", AnswerType.FISH_FOOD, Image.JELLY),
+	new Card("Imagine", AnswerType.THOUGHT, Image.NULL),
+  new Card("Visualize", AnswerType.THOUGHT, Image.NULL),
 	];
 
-// Question object
-function Question(questionText, answerType, scene, answer) {
+// Card object
+function Card(questionText, answerType, scene, answer) {
 	this.questionText = questionText;
 	this.answerType = answerType;
 	this.scene = scene;
@@ -45,24 +45,24 @@ $(document).ready(function(){
   
   buttons.push($(".answer-button"));
   
-	newQuestion();
+	newCard();
 
 });
 
-function newQuestion() {
-	var b; // button
-	var exclusion = [];
+function newCard() {
+	let b; // button
+	let exclusion = [];
 	
-	var q = QUESTION_ARRAY[currentDay-1];
+	let q = newCards.shift();
   
 	$("#question-text").html(q.questionText);
-	setSceneTo(q.scene);
+	setImageTo(q.scene);
   
-  for (var i = 0; i < 4; i++) {
+  for (let i = 0; i < 4; i++) {
     
     b = buttons[0][i];
 
-    var item = getRandomOfType(q.answerType, exclusion);
+    let item = getRandomOfType(q.answerType, exclusion);
     exclusion.push(item);
     
     b.value = item;
@@ -70,10 +70,10 @@ function newQuestion() {
     b.onclick = function() {
       // Store the response
       q.answer = this.value;
-      activeQuestions.push(q);
+      activeCards.push(q);
       
       // TEMP? show the response
-      $("#response-text").html(q.answer + " it is then. On to the next day. Day " + currentDay);
+      $("#response-text").html(q.answer + " it is then.");
       
       // Advance to the next day
       nextDay();
@@ -82,34 +82,32 @@ function newQuestion() {
 }
 
 function nextDay() {
-	currentDay++;
-	$("#day-display").text("Day " + currentDay);
-	answeredQuestions = [];
+	answeredCards = [];
 	
-	setSceneTo(Scene.OFFICE);
+	setImageTo(Image.OFFICE);
 
-	nextQuestion();
+	nextCard();
 }
 
-function nextQuestion() {
+function nextCard() {
 
-	var q = getRandomFrom(activeQuestions, answeredQuestions);
+	let q = getRandomFrom(activeCards, answeredCards);
 	
 	$("#question-text").html(q.questionText);
-	setSceneTo(q.scene);
+	setImageTo(q.scene);
   
-  setButtonForNextQuestion(q);
+  setButtonForNextCard(q);
 }
 
 // q - the question to build from
-function setButtonForNextQuestion(q) {
-  var b; // button
-  var exclusion = [q.answer]; // for pop' the answers
+function setButtonForNextCard(q) {
+  let b; // button
+  let exclusion = [q.answer]; // for pop' the answers
   
   // set everything an incorrect answer
-	for (var i = 0; i < 4; i++) {
+	for (let i = 0; i < 4; i++) {
 		b = buttons[0][i];
-		var item = getRandomOfType(q.answerType, exclusion);
+		let item = getRandomOfType(q.answerType, exclusion);
 		exclusion.push(item);
 		
 		b.value = item;
@@ -129,14 +127,14 @@ function setButtonForNextQuestion(q) {
 		$("#response-text").html("Hurray!");
 		
 		// add this q to the list
-		answeredQuestions.push(q);
+		answeredCards.push(q);
     $("#lower").toggleClass("transparent");
 		
 		// if all active q's done, add a new one
-		if (answeredQuestions.length == activeQuestions.length) {
-			newQuestion();
+		if (answeredCards.length == activeCards.length) {
+			newCard();
 		} else {
-			nextQuestion();
+			nextCard();
 		}
 	}
   
@@ -153,7 +151,7 @@ function getRandomOfType(type, exclude) {
 // Returns a random item from the list not in exclusion
 // Precon: the list must contain an item not in the exclusion
 function getRandomFrom(list, exclude) {
-	var item;
+	let item;
 	
 	// DEBUG
 	if (exclude.length >= list.length) {

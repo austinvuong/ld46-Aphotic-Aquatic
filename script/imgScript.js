@@ -1,40 +1,31 @@
-var Scene = {
+const PATH = "res/img/"
+
+let Image = {
 	NULL: 0,
 	OFFICE: 1,
-	FISH00: 2,
-	FISH01: 3,
-	FISH02: 4,
+	GOLDIE: 2,
+	ANGEL: 3,
+	SEAHORSE: 4,
+  JELLY: 5,
 	
 	path: {
-		0: "res/img/testimg.png",
-		1: "res/img/room.png",
-		2: "res/img/fish00.png",
-		3: "res/img/fish01.png",
-		4: "res/img/fish02.png"
+		0: PATH + "testImg.png",
+		1: PATH + "room.png",
+		2: PATH + "goldie.gif",
+    3: PATH + "angel.gif",
+		4: PATH + "seahorse.gif",
+		5: PATH + "jellies.gif",
 	}
 }
 
-var currentImage;
-var prevImage;
+let currentPath;
 
 $(document).ready(function(){
-	
-  prevImage = Scene.path[Scene.NULL];
-	currentImage = Scene.path[Scene.NULL];
-  
-  //$("#image-top").toggleClass("transparent");
-
+	currentPath = Image.path[Image.NULL];
 });
 
-function setSceneTo(scene) {
-	// TEMP
-	if (currentImage == Scene.path[scene]) {
-		return;
-	}
+function setImageTo(img) {
+
+	$("#image").attr("src", Image.path[img]);
   
-	prevImage = currentImage;
-  
-  // TODO cross fade
-	
-	currentImage = Scene.path[scene];
 }
