@@ -275,9 +275,10 @@ function startTimer(rate) {
       clearInterval(interval);
       // TODO
       console.log("You are fired and/or fried!");
-    } else if (progress < 10) {
-      playFalling(); // play a Shepherd's tone
     } else {
+      if (progress < 10) {
+        playFalling(); // play a Shepherd's tone
+      }
       progress -= rate;
       $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
       $("#timerBar").width(progress + "%");
