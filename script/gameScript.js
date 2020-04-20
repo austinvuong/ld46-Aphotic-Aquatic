@@ -58,9 +58,9 @@ let deck = [
   new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Steve's fish eat?"),
   
   new Card(Image.ROOM1, AnswerType.STORY, "Have you tried playing some <b>music</b> for your fish? Our own internal studies show that music can improve a fish's mood! Somehow they can distingish <b>muscal modes</b> and latch onto them. Just <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\". . .\"</i>"),
-  new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to <span class=\"w3-white\">hear</span>?"),
-  new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
-  
+  new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to hear?"),
+ /* new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
+ 
   new Card(Image.ROOM2, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
 	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What did I need to feed the seahorse?"),
   //new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
@@ -72,7 +72,7 @@ let deck = [
   new Card(Image.ROOM4, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
   new Card(Image.BETTA, AnswerType.FISH_FOOD, "The betta. What does it eat?"),
   //new Card(Image.BETTA, AnswerType.MUSIC_MODES, "The betta. What does it like to hear?"),
-  
+*/  
   new Card(Image.ROOM_WALL, AnswerType.STORY,"This one seems ... different"),
 	new Card(Image.WALL, AnswerType.THOUGHT, "It wants me to imagine"),
   
@@ -151,10 +151,9 @@ function newCards(count) {
         activeCards.push(q);
         count--; // only if the card is not story
       }
-      
+
       if (q.answerType == AnswerType.THOUGHT) {
         hasReachedDarkness = true;
-        
         convertCards();
       }
 
@@ -174,12 +173,21 @@ function newCards(count) {
 // Convert cards to their final forms
 // At this point no new sea creatures should be added
 function convertCards() {
+
   for (let i = 0 ; i < activeCards.length ; i++) {
     
-    let img = activeCards[i];
+    let img = activeCards[i].img;
     
     if (img == Image.GOLDIE) {
       activeCards[i].img = Image.GOLDIE2;
+    } else if (img == Image.ANGEL) {
+      activeCards[i].img = Image.ANGEL2;
+    } else if (img == Image.SEAHORSE) {
+      activeCards[i].img = Image.SEAHORSE2;
+    } else if (img == Image.JELLY) {
+      activeCards[i].img = Image.JELLY2;
+    } else if (img == Image.BETTA) {
+      activeCards[i].img = Image.BETTA2;
     }
   }
 }
@@ -259,7 +267,6 @@ function setButtonForNextCard(q) {
     }
   }
 
-  
 }
 
 // Timer bar
