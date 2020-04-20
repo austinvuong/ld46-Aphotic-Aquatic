@@ -29,30 +29,31 @@ let AnswerType = {
 };
 
 let deck = [
-  new Card("Oh bother I've been give some fish to care for", AnswerType.ACCEPT, Image.OFFICE),
-	new Card("What did I need to feed Goldie?", AnswerType.FISH_FOOD, Image.GOLDIE),
-	new Card("What did Steve's fish eat?", AnswerType.FISH_FOOD, Image.ANGEL),
-	new Card("What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?", AnswerType.FISH_FOOD, Image.SEAHORSE),
+  new Card(Image.OFFICE, AnswerType.ACCEPT, "Oh bother I've been give some fish to care for"),
+	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What did I need to feed Goldie?"),
+	new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What did Steve's fish eat?"),
+	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?"),
   
-  new Card("Someone just dropped off another one", AnswerType.ACCEPT, Image.OFFICE),
-  new Card("What jelly want?", AnswerType.FISH_FOOD, Image.JELLY),
+  new Card(Image.OFFICE, AnswerType.ACCEPT, "Someone just dropped off another one"),
+  new Card(Image.JELLY, AnswerType.FISH_FOOD, "What jelly want?"),
   
-  new Card("Oh another one", AnswerType.ACCEPT, Image.OFFICE),
-  new Card("Hrmm .. what did the betta want?", AnswerType.FISH_FOOD, Image.BETTA),
+  new Card(Image.OFFICE, AnswerType.ACCEPT, "Oh another one"),
+  new Card(Image.BETTA, AnswerType.FISH_FOOD, "Hrmm .. what did the betta want?"),
   
-  new Card("This one seems ... different", AnswerType.ACCEPT, Image.OFFICE),
-	new Card("It wants me to imagine", AnswerType.THOUGHT, Image.NULL),
+  new Card(Image.OFFICE, AnswerType.ACCEPT,"This one seems ... different"),
+	new Card(Image.NULL, AnswerType.THOUGHT, "It wants me to imagine"),
   
-  new Card("It wants more", AnswerType.ACCEPT, Image.OFFICE),
-  new Card("It wants me to visualize", AnswerType.THOUGHT, Image.NULL),
+  new Card(Image.OFFICE, AnswerType.ACCEPT, "It wants more"),
+  new Card(Image.NULL, AnswerType.THOUGHT, "It wants me to visualize"),
 	];
 
 // Card object
-function Card(questionText, answerType, scene, answer) {
-	this.questionText = questionText;
-	this.answerType = answerType;
-	this.scene = scene;
-	this.answer = answer;
+function Card(scene, answerType, cardText) {
+  this.scene = scene;
+  this.answerType = answerType;
+	this.cardText = cardText;
+
+	this.answer = "";
 }
 
 // Init
@@ -76,7 +77,7 @@ function newCards(count) {
 	
 	let q = deck.shift();
   
-	$("#question-text").html("Oh this is new . . . " + q.questionText);
+	$("#question-text").html("Oh this is new . . . " + q.cardText);
 	setImageTo(q.scene);
   
   for (let i = 0; i < 4; i++) {
@@ -102,13 +103,10 @@ function newCards(count) {
         
       // return to the going cards
       count--;
-      console.log(count);
       if (count <= 0) {
-        console.log("Done with new cards");
         lastCard = q;
         nextCard();
       } else { // or add more
-        console.log("More to add");
         newCards(count); // ensure this -- somewhere
       }
     };
@@ -124,7 +122,7 @@ function nextCard() {
   exclusion.push(answeredCards, lastCard);
 	let q = getRandomFrom(activeCards, exclusion);
 	
-	$("#question-text").html(q.questionText);
+	$("#question-text").html(q.cardText);
 	setImageTo(q.scene);
   
   setButtonForNextCard(q);
