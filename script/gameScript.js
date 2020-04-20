@@ -63,15 +63,15 @@ let deck = [
   
   new Card(Image.ROOM2, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
 	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What did I need to feed the seahorse?"),
-  new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
+  //new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
   
   new Card(Image.ROOM3, AnswerType.STORY, "Dr. Qtaro is on leave for the next while. Please keep his jellies alive. <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>. . .</i>"),
   new Card(Image.JELLY, AnswerType.FISH_FOOD, "What do I feed the jellies?"),
-  new Card(Image.JELLY, AnswerType.MUSIC_MODES, "What the jellies listen to?"),
+  //new Card(Image.JELLY, AnswerType.MUSIC_MODES, "What the jellies listen to?"),
   
   new Card(Image.ROOM4, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
   new Card(Image.BETTA, AnswerType.FISH_FOOD, "The betta. What does it eat?"),
-  new Card(Image.BETTA, AnswerType.MUSIC_MODES, "The betta. What does it like to hear?"),
+  //new Card(Image.BETTA, AnswerType.MUSIC_MODES, "The betta. What does it like to hear?"),
   
   new Card(Image.ROOM_WALL, AnswerType.STORY,"This one seems ... different"),
 	new Card(Image.WALL, AnswerType.THOUGHT, "It wants me to imagine"),
