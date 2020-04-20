@@ -94,14 +94,9 @@ function newCards(count) {
       }
     };
   }
-}
-
-function nextDay() {
-	answeredCards = [];
-	
-	setImageTo(Image.OFFICE);
-
-	nextCard();
+  
+  // every time a new card is added, reset the hand
+  answeredCards = [];
 }
 
 function nextCard() {
