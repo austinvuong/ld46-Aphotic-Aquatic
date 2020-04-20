@@ -51,38 +51,38 @@ let AnswerType = {
 };
 
 let deck = [
-  new Card(Image.OFFICE, AnswerType.STORY, "Welcome to your internship at TODO FISHYFISHFISH LABS. As a welcoming gift here's a goldfish! I'm not sure what it eats, but whatever you <b>feed</b> it <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"I think I'll name you Goldie\"</i>"),
+  new Card(Image.ROOM0, AnswerType.STORY, "Welcome to your internship at TODO FISHYFISHFISH LABS. As a welcoming gift here's a goldfish! I'm not sure what it eats, but whatever you <b>feed</b> it <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"I think I'll name you Goldie\"</i>"),
 	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What do I need to feed Goldie?"),
 
-  new Card(Image.OFFICE, AnswerType.STORY, "Some of our team is going on vacation. If you could just take care of their pets while their gone that'd be great. Not sure what they <b>eat</b> but <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"What an exciting internship this is looking to be . . .\"</i>"),
+  new Card(Image.ROOM1, AnswerType.STORY, "Some of our team is going on vacation. If you could just take care of their pets while their gone that'd be great. Not sure what they <b>eat</b> but <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"What an exciting internship this is looking to be . . .\"</i>"),
   new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Steve's fish eat?"),
   
-  new Card(Image.OFFICE, AnswerType.STORY, "Have you tried playing some <b>music</b> for your fish? Our own internal studies show that music can improve a fish's mood! Somehow they can distingish <b>muscal modes</b> and latch onto them. Just <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\". . .\"</i>"),
+  new Card(Image.ROOM2, AnswerType.STORY, "Have you tried playing some <b>music</b> for your fish? Our own internal studies show that music can improve a fish's mood! Somehow they can distingish <b>muscal modes</b> and latch onto them. Just <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\". . .\"</i>"),
   new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to <span class=\"w3-white\">hear</span>?"),
   new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
   
-  new Card(Image.OFFICE, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
-  new Card(Image.JELLY, AnswerType.FISH_FOOD, "What do I feed the jellies?"),
-  new Card(Image.JELLY, AnswerType.MUSIC_MODES, "What the jellies listen to?"),
-  
-  new Card(Image.OFFICE, AnswerType.STORY, "Dr. Qtaro is on leave for the next while. Please keep his seahorse alive. <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>. . .</i>"),
+  new Card(Image.ROOM3, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
 	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What did I need to feed the seahorse?"),
   new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
   
-  new Card(Image.OFFICE, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
+  new Card(Image.ROOM4, AnswerType.STORY, "Dr. Qtaro is on leave for the next while. Please keep his jellies alive. <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>. . .</i>"),
+  new Card(Image.JELLY, AnswerType.FISH_FOOD, "What do I feed the jellies?"),
+  new Card(Image.JELLY, AnswerType.MUSIC_MODES, "What the jellies listen to?"),
+  
+  new Card(Image.ROOM5, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
   new Card(Image.BETTA, AnswerType.FISH_FOOD, "The betta. What does it eat?"),
   new Card(Image.BETTA, AnswerType.MUSIC_MODES, "The betta. What does it like to hear?"),
   
-  new Card(Image.OFFICE, AnswerType.STORY,"This one seems ... different"),
-	new Card(Image.NULL, AnswerType.THOUGHT, "It wants me to imagine"),
+  new Card(Image.ROOM_WALL, AnswerType.STORY,"This one seems ... different"),
+	new Card(Image.WALL, AnswerType.THOUGHT, "It wants me to imagine"),
   
-  new Card(Image.OFFICE, AnswerType.STORY, "It wants more"),
-  new Card(Image.NULL, AnswerType.THOUGHT, "It wants me to visualize"),
+  new Card(Image.ROOM_WALL, AnswerType.STORY, "It wants more"),
+  new Card(Image.WALL, AnswerType.THOUGHT, "It wants me to visualize"),
 	];
 
 // Card object
-function Card(scene, answerType, cardText, responseText) {
-  this.scene = scene;
+function Card(img, answerType, cardText, responseText) {
+  this.img = img;
   this.answerType = answerType;
 	this.cardText = cardText;
   this.responseText = responseText;
@@ -155,6 +155,8 @@ function newCards(count) {
       
       if (q.answerType == AnswerType.THOUGHT) {
         hasReachedDarkness = true;
+        
+        convertCards();
       }
 
       if (count <= 0) {
@@ -168,6 +170,19 @@ function newCards(count) {
   
   // every time a new card is added, reset the hand
   answeredCards = [];
+}
+
+// Convert cards to their final forms
+// At this point no new sea creatures should be added
+function convertCards() {
+  for (let i = 0 ; i < activeCards.length ; i++) {
+    
+    let img = activeCards[i];
+    
+    if (img == Image.GOLDIE) {
+      activeCards[i].img = Image.GOLDIE2;
+    }
+  }
 }
 
 function nextCard() {
