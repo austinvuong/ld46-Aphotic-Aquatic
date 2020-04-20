@@ -27,6 +27,7 @@ let AnswerType = {
   STORY: 4,
   OOPS: 5, // for dead fish
   MUSIC_MODES: 6,
+  RETRY: 7,
 	
 	properties: {
 		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]},
@@ -46,7 +47,9 @@ let AnswerType = {
     
     5: {items: ["Oops.", "Oops..", "Oops...", "Oops....",]},
     
-    6: {items: ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]}
+    6: {items: ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]},
+    
+    7: {items: ["Try again?", "Refresh the page.", "F5", "Look for new internship",]}
 	}
 };
 
@@ -282,6 +285,11 @@ function startTimer(rate) {
       clearInterval(interval);
       // TODO
       console.log("You are fired and/or fried!");
+      if (hasReachedDarkness) {
+        showFriedCard();
+      } else {
+        showFiredCard();
+      }
     } else {
       if (progress < 10) {
         playFalling(); // play a Shepherd's tone
@@ -290,6 +298,55 @@ function startTimer(rate) {
       $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
       $("#timerBar").width(progress + "%");
     }
+  }
+}
+
+// Fail cards
+function showFiredCard() {
+  let exclusion = [];
+  
+	$("#question-text").html("You\'re are fired!");
+	setImageTo(Image.NULL);
+
+  for (let i = 0; i < 4; i++) {
+    
+    b = buttons[0][i];
+
+    let item = getRandomOfType(AnswerType.RETRY, exclusion);
+    exlucions.push(item);
+    
+    b.value = item;
+    
+    console.log(b.value);
+
+    b.onclick = function() {
+      // Store the response
+      playRandomBloop();
+    };
+  }
+}
+
+function showFriedCard() {
+  let exclusion = [];
+  
+	$("#question-text").html("You\'re are fired!");
+	setImageTo(Image.NULL);
+
+  for (let i = 0; i < 4; i++) {
+    
+    b = buttons[0][i];
+
+    let item = getRandomOfType(AnswerType.RETRY, exclusion);
+    exlucions.push(item);
+    
+    b.value = item;
+    
+    console.log(b.value);
+
+    b.onclick = function() {
+      // Store the response
+      playRandomBloop();
+    };
   }
 }
 
