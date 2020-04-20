@@ -176,6 +176,7 @@ function setButtonForNextCard(q) {
 		b.onclick = function() {
       let ansLower = this.value.toLowerCase();
 			$("#response-text").html(`<i>\"Hmm, it wasn't ${ansLower}.\"<\i>`);
+      shake($("#timerBarContainer"), 100);
       progress -= 15;
       
       // If seen the wall, allow fish to be killed
@@ -238,6 +239,13 @@ function startTimer(rate) {
       $("#timerBar").width(progress + "%");
     }
   }
+}
+
+// Animation
+// el - the jquery selection to shake
+function shake(el, duration) {
+  el.addClass("shake");
+  setTimeout(function() {el.removeClass("shake");}, duration)
 }
 
 // Helpers
