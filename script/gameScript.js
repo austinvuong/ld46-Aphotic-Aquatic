@@ -140,9 +140,8 @@ function newCards(count) {
     b.onclick = function() {
       // Store the response
       q.answer = this.value;
-      
-      //TEMP
-      play();
+
+      playAmbient();
 
       // handle story cards
       if (q.answerType == AnswerType.STORY) {
@@ -270,6 +269,7 @@ function startTimer(rate) {
   clearInterval(interval);
 
   progress = 100;
+  stopFalling();
   interval = setInterval(frame, 10);
   function frame() {
     if (progress < -5) { // a little coyote time
@@ -277,6 +277,8 @@ function startTimer(rate) {
       clearInterval(interval);
       // TODO
       console.log("You are fired and/or fried!");
+    } else if (progress < 10) {
+      playFalling(); // play a Shepherd's tone
     } else {
       progress -= rate;
       $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
