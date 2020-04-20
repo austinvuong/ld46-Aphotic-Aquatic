@@ -42,7 +42,7 @@ let AnswerType = {
           
           ]},
     
-    4: {items: ["Okay.", "Okay..", "Okay...", "Okay....",]},
+    4: {items: ["Okay.", "Okay..", "Okay...", "Okay....", "Yikes.", "Sounds good.", "Can do!", "This sounds fun.",]},
     
     5: {items: ["Oops.", "Oops..", "Oops...", "Oops....",]},
     
