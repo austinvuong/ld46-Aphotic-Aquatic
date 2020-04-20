@@ -7,6 +7,8 @@ let badResponse = "No.";
 let activeCards = [];
 let answeredCards = [];
 
+let lastCard; // used to prevent immediate repeats
+
 // Answer types
 let AnswerType = {
 	NULL: 0,
@@ -23,13 +25,13 @@ let AnswerType = {
 	}
 };
 
-let newCards = [
+let deck = [
 	new Card("What did I need to feed Goldie?", AnswerType.FISH_FOOD, Image.GOLDIE),
 	new Card("What did Steve's fish eat?", AnswerType.FISH_FOOD, Image.ANGEL),
 	new Card("What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?", AnswerType.FISH_FOOD, Image.SEAHORSE),
   new Card("What jelly want?", AnswerType.FISH_FOOD, Image.JELLY),
-	new Card("Imagine", AnswerType.THOUGHT, Image.NULL),
-  new Card("Visualize", AnswerType.THOUGHT, Image.NULL),
+	new Card("It wants me to imagine", AnswerType.THOUGHT, Image.NULL),
+  new Card("It wants me to visualize", AnswerType.THOUGHT, Image.NULL),
 	];
 
 // Card object
@@ -45,15 +47,21 @@ $(document).ready(function(){
   
   buttons.push($(".answer-button"));
   
-	newCard();
-
+	newCards(3);
 });
 
-function newCard() {
-	let b; // button
-	let exclusion = [];
+// count - the number of cards to init
+function newCards(count) {
+
+  // stop making new requests
+  if (count <= 0) {
+    return;
+  }
+  
+  let b; // button
+	let exclusion = []; // is empty
 	
-	let q = newCards.shift();
+	let q = deck.shift();
   
 	$("#question-text").html(q.questionText);
 	setImageTo(q.scene);
@@ -74,9 +82,15 @@ function newCard() {
       
       // TEMP? show the response
       $("#response-text").html(q.answer + " it is then.");
-      
-      // Advance to the next day
-      nextDay();
+        
+      // return to the going cards
+      count--;
+      if (count <= 0) {
+        lastCard = q;
+        nextCard();
+      } else { // or add more
+        newCards(count); // ensure this -- somewhere
+      }
     };
   }
 }
@@ -91,7 +105,9 @@ function nextDay() {
 
 function nextCard() {
 
-	let q = getRandomFrom(activeCards, answeredCards);
+  let exclusion = [];
+  exclusion.push(answeredCards, lastCard);
+	let q = getRandomFrom(activeCards, exclusion);
 	
 	$("#question-text").html(q.questionText);
 	setImageTo(q.scene);
@@ -124,15 +140,16 @@ function setButtonForNextCard(q) {
 	b.value = q.answer;
 
 	b.onclick = function() {
-		$("#response-text").html("Hurray!");
+		$("#response-text").html("Right it was " + q.answer);
 		
 		// add this q to the list
 		answeredCards.push(q);
+    lastCard = q;
     $("#lower").toggleClass("transparent");
 		
 		// if all active q's done, add a new one
 		if (answeredCards.length == activeCards.length) {
-			newCard();
+			newCards(1);
 		} else {
 			nextCard();
 		}
