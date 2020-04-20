@@ -15,8 +15,8 @@ let hasReachedDarkness = false; // has gotten to any THOUGHT card
 let progress;
 let interval;
 let timerStoryRate = 0.001;
-let timerRate = 0.02;
-let timerRateInc = 0.005;
+let timerRate = 0.01;
+let timerRateInc = 0.0025;
 
 // Answer types
 let AnswerType = {
@@ -57,19 +57,19 @@ let deck = [
   new Card(Image.ROOM1, AnswerType.STORY, "Some of our team is going on vacation. If you could just take care of their pets while their gone that'd be great. Not sure what they <b>eat</b> but <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"What an exciting internship this is looking to be . . .\"</i>"),
   new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Steve's fish eat?"),
   
-  new Card(Image.ROOM2, AnswerType.STORY, "Have you tried playing some <b>music</b> for your fish? Our own internal studies show that music can improve a fish's mood! Somehow they can distingish <b>muscal modes</b> and latch onto them. Just <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\". . .\"</i>"),
+  new Card(Image.ROOM1, AnswerType.STORY, "Have you tried playing some <b>music</b> for your fish? Our own internal studies show that music can improve a fish's mood! Somehow they can distingish <b>muscal modes</b> and latch onto them. Just <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\". . .\"</i>"),
   new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to <span class=\"w3-white\">hear</span>?"),
   new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
   
-  new Card(Image.ROOM3, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
+  new Card(Image.ROOM2, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
 	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What did I need to feed the seahorse?"),
   new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
   
-  new Card(Image.ROOM4, AnswerType.STORY, "Dr. Qtaro is on leave for the next while. Please keep his jellies alive. <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>. . .</i>"),
+  new Card(Image.ROOM3, AnswerType.STORY, "Dr. Qtaro is on leave for the next while. Please keep his jellies alive. <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>. . .</i>"),
   new Card(Image.JELLY, AnswerType.FISH_FOOD, "What do I feed the jellies?"),
   new Card(Image.JELLY, AnswerType.MUSIC_MODES, "What the jellies listen to?"),
   
-  new Card(Image.ROOM5, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
+  new Card(Image.ROOM4, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
   new Card(Image.BETTA, AnswerType.FISH_FOOD, "The betta. What does it eat?"),
   new Card(Image.BETTA, AnswerType.MUSIC_MODES, "The betta. What does it like to hear?"),
   
@@ -113,8 +113,10 @@ function newCards(count) {
 	let q = deck.shift();
   
   // TEMP
+  console.log(q);
+    console.log(Image.ROOM0);
 	$("#question-text").html("%NEWCARD " + q.cardText);
-	setImageTo(q.scene);
+	setImageTo(q.img);
   
   let rate;
   if (q.answerType == AnswerType.STORY) {
@@ -192,7 +194,7 @@ function nextCard() {
 	let q = getRandomFrom(activeCards, exclusion);
 	
 	$("#question-text").html(q.cardText);
-	setImageTo(q.scene);
+	setImageTo(q.img);
   
   timerRate += timerRateInc;
   startTimer(timerRate);

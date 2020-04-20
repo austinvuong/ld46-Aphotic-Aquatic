@@ -17,7 +17,7 @@ let Image = {
 	ROOM2: 9,
   ROOM3: 10,
   ROOM4: 11,
-  ROOM5: 12
+  ROOM_WALL: 12,
   
   // Creatures second stage
 	GOLDIE2: 13,
@@ -30,11 +30,26 @@ let Image = {
 	path: {
 		0: PATH + "testImg.png",
 		1: PATH + "room.png",
+    
 		2: PATH + "goldie.gif",
     3: PATH + "angel.gif",
 		4: PATH + "seahorse.gif",
 		5: PATH + "jellies.gif",
     6: PATH + "betta.gif",
+    
+    7: PATH + "room-0.png",
+		8: PATH + "room-1.png",
+		9: PATH + "room-2.png",
+    10: PATH + "room-3.png",
+		11: PATH + "room-4.png",
+		12: PATH + "room-final.png",
+    
+		13: PATH + "goldie-final.gif",
+    14: PATH + "angel-final.gif",
+		15: PATH + "seahorse-final.gif",
+		16: PATH + "jellies-final.gif",
+    17: PATH + "betta-final.gif",
+    18: PATH + "finalfish.gif",
 	}
 }
 
