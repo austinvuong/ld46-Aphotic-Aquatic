@@ -208,8 +208,7 @@ function setButtonForNextCard(q) {
 function startTimer() {
   clearInterval(interval);
   timerRate += timerRateInc;
-  
-  var elem = document.getElementById("timerBar");   
+
   progress = 100;
   interval = setInterval(frame, 10);
   function frame() {
@@ -218,8 +217,9 @@ function startTimer() {
       // TODO
       alert("You are fired and/or fried!");
     } else {
-      progress -= timerRate; 
-      elem.style.width = progress + '%'; 
+      progress -= timerRate;
+      $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
+      $("#timerBar").width(progress + "%"); 
     }
   }
 }
