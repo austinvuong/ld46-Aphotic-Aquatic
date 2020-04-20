@@ -27,6 +27,7 @@ let AnswerType = {
   STORY: 4,
   OOPS: 5, // for dead fish
   MUSIC_MODES: 6,
+  RETRY: 7,
 	
 	properties: {
 		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]},
@@ -46,12 +47,14 @@ let AnswerType = {
     
     5: {items: ["Oops.", "Oops..", "Oops...", "Oops....",]},
     
-    6: {items: ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]}
+    6: {items: ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]},
+    
+    7: {items: ["Try again?", "Refresh the page.", "F5", "Look for new internship",]}
 	}
 };
 
 let deck = [
-  new Card(Image.ROOM0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! With us, you’ll have the opportunity to learn about amazing and unusual fish. Caring for fish is a big part of the job - To start, we'll test how well you take care of your very own goldfish!<br>Based on our research fish only care about one thing: <b>consistency.</b> It doesn't matter what you feed them, just make sure you <b>remember</b> what it was, and always feed them the <b>same thing</b>!<br><br>Don't let us down.<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher","<i>I think I'll name you Goldie\"</i>"),
+  new Card(Image.ROOM0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! With us, you’ll have the opportunity to learn about amazing and unusual fish. Caring for fish is a big part of the job - To start, we'll test how well you take care of your very own goldfish!<br>Based on our research fish only care about one thing: <b>consistency.</b> It doesn't matter what you feed them, just make sure you <b>remember</b> what it was, and always feed them the <b>same thing</b>!<br><br>Don't let us down.<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher","<i>/"I think I'll name you Goldie\"</i>"),
 	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What do I need to feed Goldie?"),
 
   new Card(Image.ROOM1, AnswerType.STORY, "Some of our team is going on vacation. If you could just take care of their pets while their gone that'd be great. Not sure what they <b>eat</b> but <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"What an exciting internship this is looking to be . . .\"</i>"),
@@ -282,6 +285,11 @@ function startTimer(rate) {
       clearInterval(interval);
       // TODO
       console.log("You are fired and/or fried!");
+      if (hasReachedDarkness) {
+        showFriedCard();
+      } else {
+        showFiredCard();
+      }
     } else {
       if (progress < 10) {
         playFalling(); // play a Shepherd's tone
@@ -290,6 +298,55 @@ function startTimer(rate) {
       $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
       $("#timerBar").width(progress + "%");
     }
+  }
+}
+
+// Fail cards
+function showFiredCard() {
+  let exclusion = [];
+  
+	$("#question-text").html("You\'re are fired!");
+	setImageTo(Image.NULL);
+
+  for (let i = 0; i < 4; i++) {
+    
+    b = buttons[0][i];
+
+    let item = getRandomOfType(AnswerType.RETRY, exclusion);
+    exlucions.push(item);
+    
+    b.value = item;
+    
+    console.log(b.value);
+
+    b.onclick = function() {
+      // Store the response
+      playRandomBloop();
+    };
+  }
+}
+
+function showFriedCard() {
+  let exclusion = [];
+  
+	$("#question-text").html("You\'re are fired!");
+	setImageTo(Image.NULL);
+
+  for (let i = 0; i < 4; i++) {
+    
+    b = buttons[0][i];
+
+    let item = getRandomOfType(AnswerType.RETRY, exclusion);
+    exlucions.push(item);
+    
+    b.value = item;
+    
+    console.log(b.value);
+
+    b.onclick = function() {
+      // Store the response
+      playRandomBloop();
+    };
   }
 }
 
