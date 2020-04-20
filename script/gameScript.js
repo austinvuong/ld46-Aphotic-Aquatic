@@ -24,38 +24,59 @@ let AnswerType = {
 	FISH: 1,
 	FISH_FOOD: 2,
 	THOUGHT: 3,
-  ACCEPT: 4,
+  STORY: 4,
   OOPS: 5, // for dead fish
+  MUSIC_MODES: 6,
 	
 	properties: {
 		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]},
 		
-		2: {items: ["Flakes", "Stick-on tablets", "Sinking pellets", "Bloodwoorms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Crisps", ]},
+		2: {items: ["Tropical flakes", "Stick-on tablets", "Sinking pellets", "Bloodwoorms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Larvae", "Beef heart flakes", "Leafy greens"]},
 		
-		3: {items: ["Tranquility", "Calamity", "Serenity", "Ruin", "Annihilation", "Bliss"]},
+		3: {items: [
+          // positive
+          "Tranquility", "Bliss", "Serenity", "Harmony", "Coherence", "Triumph", "Relief", "Magnificence", "Achievement", "Transcendence", 
+          
+          // negative
+          "Ruin", "Annihilation", "Calamity", "Turmoil", "Dissonance", "Loathing", "Pandemonium", "Burden", "Regret"
+          
+          ]},
     
     4: {items: ["Okay.", "Okay..", "Okay...", "Okay....",]},
     
-    5: {items: ["Oops.", "Oops..", "Oops...", "Oops....",]}
+    5: {items: ["Oops.", "Oops..", "Oops...", "Oops....",]},
+    
+    6: {items: ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]}
 	}
 };
 
 let deck = [
-  new Card(Image.OFFICE, AnswerType.ACCEPT, "Welcome to your internship at TODO FISHYFISHFISH LABS. Some of our team is on vacation, so we need you to take care of their pets. I'm not sure what they eat, but whatever you feed them <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>What an exciting internship this is looking to be . . .</i>"),
-	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What did I need to feed Goldie?"),
-	new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What did Steve's fish eat?"),
-	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?"),
+  new Card(Image.OFFICE, AnswerType.STORY, "Welcome to your internship at TODO FISHYFISHFISH LABS. As a welcoming gift here's a goldfish! I'm not sure what it eats, but whatever you <b>feed</b> it <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"I think I'll name you Goldie\"</i>"),
+	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What do I need to feed Goldie?"),
+
+  new Card(Image.OFFICE, AnswerType.STORY, "Some of our team is going on vacation. If you could just take care of their pets while their gone that'd be great. Not sure what they <b>eat</b> but <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"What an exciting internship this is looking to be . . .\"</i>"),
+  new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Steve's fish eat?"),
   
-  new Card(Image.OFFICE, AnswerType.ACCEPT, "Someone just dropped off another one"),
-  new Card(Image.JELLY, AnswerType.FISH_FOOD, "What jelly want?"),
+  new Card(Image.OFFICE, AnswerType.STORY, "Have you tried playing some <b>music</b> for your fish? Our own internal studies show that music can improve a fish's mood! Somehow they can distingish <b>muscal modes</b> and latch onto them. Just <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\". . .\"</i>"),
+  new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to <span class=\"w3-white\">hear</span>?"),
+  new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
   
-  new Card(Image.OFFICE, AnswerType.ACCEPT, "Oh another one"),
-  new Card(Image.BETTA, AnswerType.FISH_FOOD, "Hrmm .. what did the betta want?"),
+  new Card(Image.OFFICE, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
+  new Card(Image.JELLY, AnswerType.FISH_FOOD, "What do I feed the jellies?"),
+  new Card(Image.JELLY, AnswerType.MUSIC_MODES, "What the jellies listen to?"),
   
-  new Card(Image.OFFICE, AnswerType.ACCEPT,"This one seems ... different"),
+  new Card(Image.OFFICE, AnswerType.STORY, "Dr. Qtaro is on leave for the next while. Please keep his seahorse alive. <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>. . .</i>"),
+	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What did I need to feed the seahorse?"),
+  new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
+  
+  new Card(Image.OFFICE, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
+  new Card(Image.BETTA, AnswerType.FISH_FOOD, "The betta. What does it eat?"),
+  new Card(Image.BETTA, AnswerType.MUSIC_MODES, "The betta. What does it like to hear?"),
+  
+  new Card(Image.OFFICE, AnswerType.STORY,"This one seems ... different"),
 	new Card(Image.NULL, AnswerType.THOUGHT, "It wants me to imagine"),
   
-  new Card(Image.OFFICE, AnswerType.ACCEPT, "It wants more"),
+  new Card(Image.OFFICE, AnswerType.STORY, "It wants more"),
   new Card(Image.NULL, AnswerType.THOUGHT, "It wants me to visualize"),
 	];
 
@@ -74,10 +95,11 @@ $(document).ready(function(){
   
   buttons.push($(".answer-button"));
   
-	newCards(4); // welcome card + 3 fish
+	newCards(2);
 });
 
 // count - the number of cards to init
+// This will keep drawing cards until it has shown {count} non-story cards
 function newCards(count) {
 
   // stop making new requests
@@ -95,7 +117,7 @@ function newCards(count) {
 	setImageTo(q.scene);
   
   let rate;
-  if (q.answerType == AnswerType.ACCEPT) {
+  if (q.answerType == AnswerType.STORY) {
     rate = timerStoryRate;
   } else {
     timerRate += timerRateInc;
@@ -116,22 +138,21 @@ function newCards(count) {
     b.onclick = function() {
       // Store the response
       q.answer = this.value;
-      
+
       // handle story cards
-      if (q.answerType == AnswerType.ACCEPT) {
+      if (q.answerType == AnswerType.STORY) {
         $("#response-text").html(q.responseText);
         // don't put them in the hand
       } else {
         $("#response-text").html(`<i>${q.answer} it is then.</i>`);
         activeCards.push(q);
+        count--; // only if the card is not story
       }
       
       if (q.answerType == AnswerType.THOUGHT) {
         hasReachedDarkness = true;
       }
-      
-      // return to the going cards
-      count--;
+
       if (count <= 0) {
         lastCard = q;
         nextCard();
@@ -177,7 +198,7 @@ function setButtonForNextCard(q) {
       let ansLower = this.value.toLowerCase();
 			$("#response-text").html(`<i>\"Hmm, it wasn't ${ansLower}.\"<\i>`);
       shake($("#timerBarContainer"), 100);
-      progress -= 15;
+      progress /= 1.4; // the less time, the less the penalty
       
       // If seen the wall, allow fish to be killed
       if (hasReachedDarkness) {
@@ -211,7 +232,7 @@ function setButtonForNextCard(q) {
       
       // if all active q's done, add a new one
       if (answeredCards.length == activeCards.length) {
-        newCards(2); // the "new fish" + the actual fish
+        newCards(1); // one non-story card
       } else {
         nextCard();
       }
@@ -232,7 +253,7 @@ function startTimer(rate) {
       $("#timerBar").width(progress + "%"); // force it (in case of progress jumps)
       clearInterval(interval);
       // TODO
-      alert("You are fired and/or fried!");
+      console.log("You are fired and/or fried!");
     } else {
       progress -= rate;
       $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
