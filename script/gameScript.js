@@ -253,7 +253,7 @@ function startTimer(rate) {
       $("#timerBar").width(progress + "%"); // force it (in case of progress jumps)
       clearInterval(interval);
       // TODO
-      alert("You are fired and/or fried!");
+      console.log("You are fired and/or fried!");
     } else {
       progress -= rate;
       $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
