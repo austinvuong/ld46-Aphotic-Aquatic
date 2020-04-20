@@ -198,7 +198,7 @@ function setButtonForNextCard(q) {
       let ansLower = this.value.toLowerCase();
 			$("#response-text").html(`<i>\"Hmm, it wasn't ${ansLower}.\"<\i>`);
       shake($("#timerBarContainer"), 100);
-      progress -= 15;
+      progress /= 1.4; // the less time, the less the penalty
       
       // If seen the wall, allow fish to be killed
       if (hasReachedDarkness) {
