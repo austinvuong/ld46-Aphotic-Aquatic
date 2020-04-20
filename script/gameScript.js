@@ -14,8 +14,9 @@ let hasReachedDarkness = false; // has gotten to any THOUGHT card
 // Timer bar
 let progress;
 let interval;
-let timerRate = 0.1;
-let timerRateInc = 0.01;
+let timerStoryRate = 0.001;
+let timerRate = 0.02;
+let timerRateInc = 0.005;
 
 // Answer types
 let AnswerType = {
@@ -40,7 +41,7 @@ let AnswerType = {
 };
 
 let deck = [
-  new Card(Image.OFFICE, AnswerType.ACCEPT, "Oh bother I've been give some fish to care for"),
+  new Card(Image.OFFICE, AnswerType.ACCEPT, "Welcome to your internship at TODO FISHYFISHFISH LABS. Some of our team is on vacation, so we need you to take care of their pets. I don't remember what they eat, but whatever feed them <b>BE CONSISTENT</b>.", "<i>What an exciting internship this is looking to be . . .</i>"),
 	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What did I need to feed Goldie?"),
 	new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What did Steve's fish eat?"),
 	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?"),
@@ -59,10 +60,11 @@ let deck = [
 	];
 
 // Card object
-function Card(scene, answerType, cardText) {
+function Card(scene, answerType, cardText, responseText) {
   this.scene = scene;
   this.answerType = answerType;
 	this.cardText = cardText;
+  this.responseText = responseText;
 
 	this.answer = "";
 }
@@ -88,9 +90,19 @@ function newCards(count) {
 	
 	let q = deck.shift();
   
-	$("#question-text").html("Oh this is new . . . " + q.cardText);
+  // TEMP
+	$("#question-text").html("%NEWCARD " + q.cardText);
 	setImageTo(q.scene);
-  startTimer();
+  
+  let rate;
+  if (q.answerType == AnswerType.ACCEPT) {
+    rate = timerStoryRate;
+  } else {
+    timerRate += timerRateInc;
+    rate = timerRate;
+  }
+  
+  startTimer(rate);
   
   for (let i = 0; i < 4; i++) {
     
@@ -105,8 +117,12 @@ function newCards(count) {
       // Store the response
       q.answer = this.value;
       
-      // ignore ACCEPT cards, they're for story stuffs
-      if (q.answerType != AnswerType.ACCEPT) {
+      // handle story cards
+      if (q.answerType == AnswerType.ACCEPT) {
+        $("#response-text").html(q.responseText);
+        // don't put them in the hand
+      } else {
+        $("#response-text").html(`<i>${q.answer} it is then.</i>`);
         activeCards.push(q);
       }
       
@@ -114,9 +130,6 @@ function newCards(count) {
         hasReachedDarkness = true;
       }
       
-      // TEMP? show the response
-      $("#response-text").html(q.answer + " it is then.");
-        
       // return to the going cards
       count--;
       if (count <= 0) {
@@ -140,7 +153,9 @@ function nextCard() {
 	
 	$("#question-text").html(q.cardText);
 	setImageTo(q.scene);
-  startTimer();
+  
+  timerRate += timerRateInc;
+  startTimer(timerRate);
   
   setButtonForNextCard(q);
 }
@@ -160,8 +175,8 @@ function setButtonForNextCard(q) {
 
 		b.onclick = function() {
 			// TEMP
-			badResponse += "&#9608";
-			$("#response-text").html(badResponse);
+			$("#response-text").html(`<i>No, ${this.value} wasn't it<\i>`);
+      progress -= 15;
       
       // If seen the wall, allow fish to be killed
       if (hasReachedDarkness) {
@@ -205,9 +220,8 @@ function setButtonForNextCard(q) {
 }
 
 // Timer bar
-function startTimer() {
+function startTimer(rate) {
   clearInterval(interval);
-  timerRate += timerRateInc;
 
   progress = 100;
   interval = setInterval(frame, 10);
@@ -217,7 +231,7 @@ function startTimer() {
       // TODO
       alert("You are fired and/or fried!");
     } else {
-      progress -= timerRate;
+      progress -= rate;
       $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
       $("#timerBar").width(progress + "%");
     }
