@@ -1,162 +1,303 @@
-var buttons = [];
-var questionTextHTML;
-var responseTextHTML;
-var badResponse = "No.";
+const fadeDelay = 400;
+const swapTextDelay = 500;
 
-var activeQuestions = []; // active questions
-var answeredQuestions = []; // questions answered today
+let buttons = [];
+let badResponse = "No.";
 
-var currentDay = 1; // also the max tasks per day
+let activeCards = [];
+let answeredCards = [];
+
+let lastCard; // used to prevent immediate repeats
+
+let hasReachedDarkness = false; // has gotten to any THOUGHT card
+
+// Timer bar
+let progress;
+let interval;
+let timerStoryRate = 0.001;
+let timerRate = 0.01;
+let timerRateInc = 0.0025;
 
 // Answer types
-var AnswerType = {
+let AnswerType = {
 	NULL: 0,
 	FISH: 1,
 	FISH_FOOD: 2,
 	THOUGHT: 3,
+  STORY: 4,
+  OOPS: 5, // for dead fish
+  MUSIC_MODES: 6,
 	
 	properties: {
 		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]},
 		
-		2: {items: ["Flakes", "Stick-on tablets", "Sinking pellets", "Bloodwoorms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Crisps", ]},
+		2: {items: ["Tropical flakes", "Stick-on tablets", "Sinking pellets", "Bloodwoorms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Larvae", "Beef heart flakes", "Leafy greens"]},
 		
-		3: {items: ["Tranquility", "Calamity", "Serenity", "Ruin", "Annihilation", "Bliss"]}
+		3: {items: [
+          // positive
+          "Tranquility", "Bliss", "Serenity", "Harmony", "Coherence", "Triumph", "Relief", "Magnificence", "Achievement", "Transcendence", 
+          
+          // negative
+          "Ruin", "Annihilation", "Calamity", "Turmoil", "Dissonance", "Loathing", "Pandemonium", "Burden", "Regret"
+          
+          ]},
+    
+    4: {items: ["Okay.", "Okay..", "Okay...", "Okay....", "Yikes.", "Sounds good.", "Can do!", "This sounds fun.",]},
+    
+    5: {items: ["Oops.", "Oops..", "Oops...", "Oops....",]},
+    
+    6: {items: ["Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Aeolian", "Locrian"]}
 	}
 };
 
-const QUESTION_ARRAY = [
-	new Question("What did I need to feed Goldie?", AnswerType.FISH_FOOD, Scene.FISH00),
-	new Question("What did Steve's fish eat?", AnswerType.FISH_FOOD, Scene.FISH01),
-	new Question("What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?", AnswerType.FISH_FOOD, Scene.FISH02),
-	new Question("Imagine", AnswerType.THOUGHT, Scene.NULL),
+let deck = [
+  new Card(Image.ROOM0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! With us, you’ll have the opportunity to learn about amazing and unusual fish. Caring for fish is a big part of the job - To start, we'll test how well you take care of your very own goldfish!<br>Based on our research fish only care about one thing: <b>consistency.</b> It doesn't matter what you feed them, just make sure you <b>remember</b> what it was, and always feed them the <b>same thing</b>!<br><br>Don't let us down.<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher","<i>I think I'll name you Goldie\"</i>"),
+	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What do I need to feed Goldie?"),
+
+  new Card(Image.ROOM1, AnswerType.STORY, "Some of our team is going on vacation. If you could just take care of their pets while their gone that'd be great. Not sure what they <b>eat</b> but <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"What an exciting internship this is looking to be . . .\"</i>"),
+  new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Steve's fish eat?"),
+  
+  new Card(Image.ROOM1, AnswerType.STORY, "Have you tried playing some <b>music</b> for your fish? Our own internal studies show that music can improve a fish's mood! Somehow they can distingish <b>muscal modes</b> and latch onto them. Just <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\". . .\"</i>"),
+  new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to hear?"),
+ /* new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
+ 
+  new Card(Image.ROOM2, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
+	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What did I need to feed the seahorse?"),
+  //new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
+  
+  new Card(Image.ROOM3, AnswerType.STORY, "Dr. Qtaro is on leave for the next while. Please keep his jellies alive. <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>. . .</i>"),
+  new Card(Image.JELLY, AnswerType.FISH_FOOD, "What do I feed the jellies?"),
+  //new Card(Image.JELLY, AnswerType.MUSIC_MODES, "What the jellies listen to?"),
+  
+  new Card(Image.ROOM4, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
+  new Card(Image.BETTA, AnswerType.FISH_FOOD, "The betta. What does it eat?"),
+  //new Card(Image.BETTA, AnswerType.MUSIC_MODES, "The betta. What does it like to hear?"),
+*/  
+  new Card(Image.ROOM_WALL, AnswerType.STORY,"This one seems ... different"),
+	new Card(Image.WALL, AnswerType.THOUGHT, "It wants me to imagine"),
+  
+  new Card(Image.ROOM_WALL, AnswerType.STORY, "It wants more"),
+  new Card(Image.WALL, AnswerType.THOUGHT, "It wants me to visualize"),
 	];
 
-// Question object
-function Question(questionText, answerType, scene, answer) {
-	this.questionText = questionText;
-	this.answerType = answerType;
-	this.scene = scene;
-	this.answer = answer;
+// Card object
+function Card(img, answerType, cardText, responseText) {
+  this.img = img;
+  this.answerType = answerType;
+	this.cardText = cardText;
+  this.responseText = responseText;
+
+	this.answer = "";
 }
 
 // Init
 $(document).ready(function(){
-	
-	// TEMP question text
-	questionTextHTML = document.createElement("h2");
-	questionTextHTML.innerHTML = "Question Text";
-	questionTextHTML.id = "question-text"; 
-	questionTextHTML.classList.add("horizontal-center");
-	$("#button-grid").before(questionTextHTML);
-
-	// append buttons	
-	for (var i = 0; i < 4; i++) {
-		var gridItem = document.createElement("div");
-		gridItem.classList.add("grid-item");
-
-		var button = document.createElement("button");
-		button.type = "button";
-		
-		var cl = button.classList;
-		cl.add("w3-btn");
-		cl.add("w3-xlarge");
-		cl.add("w3-light-gray");
-		cl.add("answer-button");
-		
-		gridItem.append(button);
-		$("#button-grid").append(gridItem);
-		
-		buttons.push(button);
-	}
-	
-	// TEMP append response text
-	responseTextHTML = document.createElement("h3");
-	responseTextHTML.innerHTML = "Response Text";
-	$("#button-grid").after(responseTextHTML);
-	
-	newQuestion();
-
+  
+  buttons.push($(".answer-button"));
+  
+	newCards(2);
 });
 
-function newQuestion() {
-	var b; // button
-	var exclusion = [];
-	
-	var q = QUESTION_ARRAY[currentDay-1];
-	var questionText = q.questionText;
-	var answer; // to be selected
-	var answerType = q.answerType;
+// count - the number of cards to init
+// This will keep drawing cards until it has shown {count} non-story cards
+function newCards(count) {
 
-	questionTextHTML.innerHTML = questionText;
-	setSceneTo(q.scene);
-	
-	for (var i = 0; i < 4; i++) {
-		b = buttons[i];
-		
-		var item = getRandomOfType(answerType, exclusion);
-		exclusion.push(item);
-		
-		b.innerHTML = item;
+  // stop making new requests
+  if (count <= 0) {
+    return;
+  }
 
-		b.onclick = function() {
-			// Store the response
-			q.answer = this.innerHTML;
-			activeQuestions.push(q);
-			
-			// TEMP? show the response
-			responseTextHTML.innerHTML = q.answer + " it is then. On to the next day. Day " + currentDay;
-			
-			// Advance to the next day
-			currentDay++;
-			$("#idDay").text("The day " + currentDay);
-			answeredQuestions = [];
-			
-			nextQuestion();
-		};
-	}
+  let b; // button
+	let exclusion = []; // is empty
+	
+	let q = deck.shift();
+  
+  // TEMP
+	$("#question-text").html("%NEWCARD " + q.cardText);
+	setImageTo(q.img);
+  
+  let rate;
+  if (q.answerType == AnswerType.STORY) {
+    rate = timerStoryRate;
+  } else {
+    timerRate += timerRateInc;
+    rate = timerRate;
+  }
+  
+  startTimer(rate);
+  
+  for (let i = 0; i < 4; i++) {
+    
+    b = buttons[0][i];
+
+    let item = getRandomOfType(q.answerType, exclusion);
+    exclusion.push(item);
+    
+    b.value = item;
+
+    b.onclick = function() {
+      // Store the response
+      q.answer = this.value;
+
+      playAmbient();
+
+      // handle story cards
+      if (q.answerType == AnswerType.STORY) {
+        $("#response-text").html(q.responseText);
+        // don't put them in the hand
+      } else {
+        $("#response-text").html(`<i>${q.answer} it is then.</i>`);
+        playRandomBloop();
+        activeCards.push(q);
+        count--; // only if the card is not story
+      }
+
+      if (q.answerType == AnswerType.THOUGHT) {
+        hasReachedDarkness = true;
+        convertCards();
+      }
+
+      if (count <= 0) {
+        lastCard = q;
+        nextCard();
+      } else { // or add more
+        newCards(count); // ensure this -- somewhere
+      }
+    };
+  }
+  
+  // every time a new card is added, reset the hand
+  answeredCards = [];
 }
 
-function nextQuestion() {
-	var b; // button
-	var q = getRandomFrom(activeQuestions, answeredQuestions); // TEMP
-	
-	var exclusion = [q.answer]; // for pop' the answers
-	
-	questionTextHTML.innerHTML = q.questionText;
-	setSceneTo(q.scene);
+// Convert cards to their final forms
+// At this point no new sea creatures should be added
+function convertCards() {
 
-	// set everything an incorrect answer
-	for (var i = 0; i < 4; i++) {
-		b = buttons[i];
-		var item = getRandomOfType(q.answerType, exclusion);
+  for (let i = 0 ; i < activeCards.length ; i++) {
+    
+    let img = activeCards[i].img;
+    
+    if (img == Image.GOLDIE) {
+      activeCards[i].img = Image.GOLDIE2;
+    } else if (img == Image.ANGEL) {
+      activeCards[i].img = Image.ANGEL2;
+    } else if (img == Image.SEAHORSE) {
+      activeCards[i].img = Image.SEAHORSE2;
+    } else if (img == Image.JELLY) {
+      activeCards[i].img = Image.JELLY2;
+    } else if (img == Image.BETTA) {
+      activeCards[i].img = Image.BETTA2;
+    }
+  }
+}
+
+function nextCard() {
+
+  let exclusion = [];
+  exclusion.push(answeredCards, lastCard);
+	let q = getRandomFrom(activeCards, exclusion);
+	
+	$("#question-text").html(q.cardText);
+	setImageTo(q.img);
+  
+  timerRate += timerRateInc;
+  startTimer(timerRate);
+  
+  setButtonForNextCard(q);
+}
+
+// q - the question to build from
+function setButtonForNextCard(q) {
+  let b; // button
+  let exclusion = [q.answer]; // for pop' the answers
+  
+  // set everything an incorrect answer
+	for (let i = 0; i < 4; i++) {
+		b = buttons[0][i];
+		let item = getRandomOfType(q.answerType, exclusion);
 		exclusion.push(item);
 		
-		b.innerHTML = item;
+		b.value = item;
 
 		b.onclick = function() {
-			// TEMP
-			badResponse += "&#9608";
-			responseTextHTML.innerHTML = badResponse;
+      let ansLower = this.value.toLowerCase();
+			$("#response-text").html(`<i>\"Hmm, it wasn't ${ansLower}.\"<\i>`);
+      shake($("#response-text"), 50);
+      shake($("#timerBarContainer"), 100);
+      progress /= 1.4; // the less time, the less the penalty
+      
+      // If seen the wall, allow fish to be killed
+      if (hasReachedDarkness) {
+        q.cardText = "Oh . . . it's dead."
+        q.answerType = AnswerType.OOPS;
+        // TODO dimmed static image?
+        
+        $("#response-text").html("I fed it " + this.value + ". . . I forgot it only eats " + q.answer + " . . . did I kill it?");
+        nextCard();
+      } else {
+        // TEMP you're fired!
+        console.log("You fed it " + this.value + "?! It only eats " + q.answer + "!! You're fired!");
+      }
+      
 		};
 	}
 	
-	// set one to the correct answer
-	b = buttons[randInt(0, 4)];
-	b.innerHTML = q.answer;
+  if (q.answerType != AnswerType.OOPS) {
+    // set one to the correct answer
+    b = buttons[0][randInt(0, 4)];
+    b.value = q.answer;
 
-	b.onclick = function() {
-		responseTextHTML.innerHTML = "Hurray!";
-		
-		// add this q to the list
-		answeredQuestions.push(q);
-		
-		// if all active q's done, add a new one
-		if (answeredQuestions.length == activeQuestions.length) {
-			newQuestion();
-		} else {
-			nextQuestion();
-		}
-	};
+    b.onclick = function() {
+      let ansLower = q.answer.toLowerCase();
+      $("#response-text").html(`<i>"Right, it was ${ansLower}."</i>`);
+      playRandomBloop();
+      
+      // add this q to the list
+      answeredCards.push(q);
+      lastCard = q;
+      $("#lower").toggleClass("transparent");
+      
+      // if all active q's done, add a new one
+      if (answeredCards.length == activeCards.length) {
+        newCards(1); // one non-story card
+      } else {
+        nextCard();
+      }
+    }
+  }
+
+}
+
+// Timer bar
+function startTimer(rate) {
+  clearInterval(interval);
+
+  progress = 100;
+  stopFalling();
+  interval = setInterval(frame, 10);
+  function frame() {
+    if (progress < -5) { // a little coyote time
+      $("#timerBar").width(progress + "%"); // force it (in case of progress jumps)
+      clearInterval(interval);
+      // TODO
+      console.log("You are fired and/or fried!");
+    } else {
+      if (progress < 10) {
+        playFalling(); // play a Shepherd's tone
+      }
+      progress -= rate;
+      $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
+      $("#timerBar").width(progress + "%");
+    }
+  }
+}
+
+// Animation
+// el - the jquery selection to shake
+function shake(el, duration) {
+  el.addClass("shake");
+  setTimeout(function() {el.removeClass("shake");}, duration)
 }
 
 // Helpers
@@ -170,7 +311,7 @@ function getRandomOfType(type, exclude) {
 // Returns a random item from the list not in exclusion
 // Precon: the list must contain an item not in the exclusion
 function getRandomFrom(list, exclude) {
-	var item;
+	let item;
 	
 	// DEBUG
 	if (exclude.length >= list.length) {

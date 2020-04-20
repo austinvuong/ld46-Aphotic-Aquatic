@@ -9,23 +9,89 @@
     
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-    <script src="script/canvasScript.js"></script>
+    <script src="script/imgScript.js"></script>
+    <script src="script/audioScript.js"></script>
     <script src="script/gameScript.js"></script>
     
   </head>
-  <body class="w3-black">
-    <div id="top-container">
-      <div id="canvas-container" class="horizontal-center">
-        <canvas id="gameCanvas" width="400" height="300"></canvas>
-      </div>
-      <div class="">
-        <div id="button-grid">
-            <!-- Created buttons go here -->
-        </div>
+  <body class="">
+    <div id="top-container" class="w3-center">
+
+      <div id="image-container" class="w3-center">
+        <img id="image" class="" src="res/img/testImg.png" />
       </div>
       
-      <!-- DEBUG -->
-      <p id="idDay">The day 1</p>
-    </div>
+      <div id="lower" class="w3-container w3-center">
+        <div id="response-div">
+          <p id="response-text">Response Text</p>
+        </div>
+        <div id="question-div">
+          <p id="question-text">Question Text</p>
+        </div>
+        <div id="gameButtons">
+          <div id="button-grid">
+          
+            <div class="grid-item">
+              <input id="btn1" type="button" value="ABC" class="w3-btn w3-light-gray answer-button" />
+            </div>
+            
+            <div class="grid-item">
+              <input id="btn2" type="button" value="ABC" class="w3-btn w3-light-gray answer-button" />
+            </div>
+            
+            <div class="grid-item">
+              <input id="btn3" type="button" value="ABC" class="w3-btn w3-light-gray answer-button" />
+            </div>
+            
+            <div class="grid-item">
+              <input id="btn4" type="button" value="ABC" class="w3-btn w3-light-gray answer-button" />
+            </div>
+            
+          </div>
+        </div>
+ 
+        <div id="timerBarContainer" class="w3-black w3-border">
+          <div id="timerBar" class="w3-container w3-white "></div>
+        </div>
+        <p id="timerText">Time is running out.</p>
+
+      </div>
+      
+      <audio id="ambient" loop>
+        <source src="res/audio/ambient.mp3" type="audio/mpeg">
+      </audio>
+      
+      <audio class="bloop">
+        <source src="res/audio/bloop00.mp3" type="audio/mpeg">
+      </audio>
+      
+      <audio class="bloop">
+        <source src="res/audio/bloop01.mp3" type="audio/mpeg">
+      </audio>
+      
+      <audio class="bloop">
+        <source src="res/audio/bloop02.mp3" type="audio/mpeg">
+      </audio>
+      
+      <audio class="bloop">
+        <source src="res/audio/bloop03.mp3" type="audio/mpeg">
+      </audio>
+      
+      <audio class="bloop">
+        <source src="res/audio/bloop04.mp3" type="audio/mpeg">
+      </audio>
+      
+      <audio class="bloop">
+        <source src="res/audio/bloop05.mp3" type="audio/mpeg">
+      </audio>
+      
+      <audio class="bloop">
+        <source src="res/audio/bloop06.mp3" type="audio/mpeg">
+      </audio>
+      
+      <audio id="falling">
+        <source src="res/audio/DescenteInfinie_64kb.mp3" type="audio/mpeg">
+      </audio>
+
   </body>
 </html>
