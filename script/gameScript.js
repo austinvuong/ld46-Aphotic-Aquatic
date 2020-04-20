@@ -212,14 +212,14 @@ function startTimer() {
   progress = 100;
   interval = setInterval(frame, 10);
   function frame() {
-    if (progress < 0) {
+    if (progress < -5) { // a little coyote time
       clearInterval(interval);
       // TODO
       alert("You are fired and/or fried!");
     } else {
       progress -= timerRate;
       $("#timerText").css("opacity", (-(progress / 40) + 1) + "");
-      $("#timerBar").width(progress + "%"); 
+      $("#timerBar").width(progress + "%");
     }
   }
 }
