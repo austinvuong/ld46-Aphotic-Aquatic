@@ -1,6 +1,7 @@
+const fadeDelay = 400;
+const swapTextDelay = 500;
+
 var buttons = [];
-var questionTextHTML;
-var responseTextHTML;
 var badResponse = "No.";
 
 var activeQuestions = []; // active questions
@@ -41,39 +42,9 @@ function Question(questionText, answerType, scene, answer) {
 
 // Init
 $(document).ready(function(){
-	
-	// TEMP question text
-	questionTextHTML = document.createElement("h2");
-	questionTextHTML.innerHTML = "Question Text";
-	questionTextHTML.id = "question-text"; 
-	questionTextHTML.classList.add("horizontal-center");
-	$("#button-grid").before(questionTextHTML);
-
-	// append buttons	
-	for (var i = 0; i < 4; i++) {
-		var gridItem = document.createElement("div");
-		gridItem.classList.add("grid-item");
-
-		var button = document.createElement("button");
-		button.type = "button";
-		
-		var cl = button.classList;
-		cl.add("w3-btn");
-		cl.add("w3-xlarge");
-		cl.add("w3-light-gray");
-		cl.add("answer-button");
-		
-		gridItem.append(button);
-		$("#button-grid").append(gridItem);
-		
-		buttons.push(button);
-	}
-	
-	// TEMP append response text
-	responseTextHTML = document.createElement("h3");
-	responseTextHTML.innerHTML = "Response Text";
-	$("#button-grid").after(responseTextHTML);
-	
+  
+  buttons.push($(".answer-button"));
+  
 	newQuestion();
 
 });
@@ -83,40 +54,35 @@ function newQuestion() {
 	var exclusion = [];
 	
 	var q = QUESTION_ARRAY[currentDay-1];
-	var questionText = q.questionText;
-	var answer; // to be selected
-	var answerType = q.answerType;
-
-	questionTextHTML.innerHTML = questionText;
+  
+	$("#question-text").html(q.questionText);
 	setSceneTo(q.scene);
-	
-	for (var i = 0; i < 4; i++) {
-		b = buttons[i];
-		
-		var item = getRandomOfType(answerType, exclusion);
-		exclusion.push(item);
-		
-		b.innerHTML = item;
+  
+  $("#lower").removeClass("shown");
+  setTimeout(function() { $("#lower").addClass("shown"); }, fadeDelay);
+  setTimeout(function() { 
+    for (var i = 0; i < 4; i++) {
+      
+      b = buttons[0][i];
 
-		b.onclick = function() {
-			// Store the response
-			q.answer = this.innerHTML;
-			activeQuestions.push(q);
-			
-			// TEMP? show the response
-			responseTextHTML.innerHTML = q.answer + " it is then. On to the next day. Day " + currentDay;
-			
-			// Advance to the next day
-			nextDay();
-		};
-	}
-}
+      var item = getRandomOfType(q.answerType, exclusion);
+      exclusion.push(item);
+      
+      b.value = item;
 
-function canvasClick() {
-	// TODO wait for canvas sometimes to adv
-	
-	// TEMP
-	
+      b.onclick = function() {
+        // Store the response
+        q.answer = this.value;
+        activeQuestions.push(q);
+        
+        // TEMP? show the response
+        $("#response-text").html(q.answer + " it is then. On to the next day. Day " + currentDay);
+        
+        // Advance to the next day
+        nextDay();
+      };
+    }
+  }, swapTextDelay);
 }
 
 function nextDay() {
@@ -125,47 +91,52 @@ function nextDay() {
 	answeredQuestions = [];
 	
 	setSceneTo(Scene.OFFICE);
-	
-	// TODO Hide buttons, show some expo text
-	$("#gameButtons").removeClass("slidein");
-	$("#gameButtons").addClass("slideout");
-	
+
 	nextQuestion();
 }
 
 function nextQuestion() {
-	var b; // button
-	var q = getRandomFrom(activeQuestions, answeredQuestions); // TEMP
-	
-	var exclusion = [q.answer]; // for pop' the answers
-	
-	questionTextHTML.innerHTML = q.questionText;
-	setSceneTo(q.scene);
 
-	// set everything an incorrect answer
+	var q = getRandomFrom(activeQuestions, answeredQuestions);
+	
+  $(".fade-transition").removeClass("fade-in");
+  setTimeout(function() { $("#lower").addClass("shown"); }, fadeDelay);
+  setTimeout(function() { 
+	
+	$("#question-text").html(q.questionText);
+	setSceneTo(q.scene);
+}
+
+// q - the question to build from
+function setButtonForNextQuestion(q) {
+  var b; // button
+  var exclusion = [q.answer]; // for pop' the answers
+  
+  // set everything an incorrect answer
 	for (var i = 0; i < 4; i++) {
-		b = buttons[i];
+		b = buttons[0][i];
 		var item = getRandomOfType(q.answerType, exclusion);
 		exclusion.push(item);
 		
-		b.innerHTML = item;
+		b.value = item;
 
 		b.onclick = function() {
 			// TEMP
 			badResponse += "&#9608";
-			responseTextHTML.innerHTML = badResponse;
+			$("#response-text").html(badResponse);
 		};
 	}
 	
 	// set one to the correct answer
-	b = buttons[randInt(0, 4)];
-	b.innerHTML = q.answer;
+	b = buttons[0][randInt(0, 4)];
+	b.value = q.answer;
 
 	b.onclick = function() {
-		responseTextHTML.innerHTML = "Hurray!";
+		$("#response-text").html("Hurray!");
 		
 		// add this q to the list
 		answeredQuestions.push(q);
+    $("#lower").toggleClass("transparent");
 		
 		// if all active q's done, add a new one
 		if (answeredQuestions.length == activeQuestions.length) {
@@ -174,6 +145,8 @@ function nextQuestion() {
 			nextQuestion();
 		}
 	};
+  
+  }, swapTextDelay);
 }
 
 // Helpers

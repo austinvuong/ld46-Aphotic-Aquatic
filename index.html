@@ -9,24 +9,48 @@
     
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-    <script src="script/canvasScript.js"></script>
+    <script src="script/imgScript.js"></script>
     <script src="script/gameScript.js"></script>
     
   </head>
   <body class="w3-black">
     <div id="top-container">
-      <p id="day-display" class="horizontal-center w3-large">Day 1</p>
-      <div id="canvas-container" class="horizontal-center">
-        <canvas id="gameCanvas" width="400" height="300" onclick="canvasClick()"></canvas>
-      </div>
-      <div id="gameButtons" class="slidein">
-        <div id="button-grid">
-            <!-- Created buttons go here -->
-        </div>
+      <p id="day-display" class="w3-center w3-large">Day 1</p>
+      
+      <div id="image-container" class="w3-center">
+        <img class="bottom" src="res/img/testImg.png" />
+        <img class="top" src="res/img/room.png" />
       </div>
       
-      <!-- DEBUG -->
-      <p id="idDay">Debug</p>
-    </div>
+      <div id="lower" class="w3-container">
+        <div id="response-div" class="fade-transition">
+          <p id="response-text">Response Text</p>
+        </div>
+        <div id="question-div" class="fade-transition">
+          <p id="question-text">Question Text</p>
+        </div>
+        <div id="gameButtons" class="fade-transition w3-center">
+          <div id="button-grid">
+          
+            <div class="grid-item">
+              <input id="btn1" type="button" value="ABC" class="w3-btn w3-light-gray answer-button" />
+            </div>
+            
+            <div class="grid-item">
+              <input id="btn2" type="button" value="ABC" class="w3-btn w3-light-gray answer-button" />
+            </div>
+            
+            <div class="grid-item">
+              <input id="btn3" type="button" value="ABC" class="w3-btn w3-light-gray answer-button" />
+            </div>
+            
+            <div class="grid-item">
+              <input id="btn4" type="button" value="ABC" class="w3-btn w3-light-gray answer-button" />
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      </div>
   </body>
 </html>

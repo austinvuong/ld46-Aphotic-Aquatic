@@ -1,12 +1,4 @@
 /* General */
-
-.horizontal-center {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  align-items: center;
-}
-
 body {
   position: fixed; 
   overflow-y: scroll;
@@ -15,16 +7,27 @@ body {
 }
 
 #top-container {
-  width: 100%;
-  max-width: 500px;
-  max-height: 100%;
+  max-width: 80%;
   margin-left: auto;
   margin-right: auto;
-
 }
 
-/* Nearest-neighbor interp */
-canvas, img {
+#image-container {
+background-color: #f00;
+  width: 400px;
+  height: 300px;
+  margin: auto auto;
+}
+
+#image-container img {
+  position:absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+	
+  /* Nearest-neighbor interp */
   image-rendering: optimizeSpeed;
   image-rendering: -moz-crisp-edges;
   image-rendering: -webkit-optimize-contrast;
@@ -33,13 +36,17 @@ canvas, img {
   -ms-interpolation-mode: nearest-neighbor;
 }
 
-#canvas-container {
+.fade-transition {
+  -webkit-transition: opacity 300ms ease-in-out;
+  -moz-transition: opacity 300ms ease-in-out;
+  -o-transition: opacity 300ms ease-in-out;
+  transition: opacity 300ms ease-in-out;
   
+  opacity: 0.0;
 }
 
-#gameCanvas {
-  width: 100%;
-  padding-top: 0%;
+.fade-in {
+  opacity: 1.0;
 }
 
 #button-grid {
@@ -61,34 +68,4 @@ canvas, img {
   height: 130px;
   white-space: normal;
   word-wrap: break-word;
-}
-
-.slidein {
-  animation-name: slidein;
-  animation-duration: 500ms;  animation-timing-function: ease-out;
-}
-
-.slideout {
-  animation-name: slideout;
-  animation-duration: 500ms;  animation-timing-function: ease-out;
-}
-
-@keyframes slidein {
-  from {
-    margin-top: 100%;
-  }
-
-  to {
-    margin-top: 0%;
-  }
-}
-
-@keyframes slideout {
-  from {
-    margin-top: 0%;
-  }
-
-  to {
-    margin-top: 100%;
-  }
 }
