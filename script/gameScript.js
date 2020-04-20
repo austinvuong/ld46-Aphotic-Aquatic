@@ -41,7 +41,7 @@ let AnswerType = {
 };
 
 let deck = [
-  new Card(Image.OFFICE, AnswerType.ACCEPT, "Welcome to your internship at TODO FISHYFISHFISH LABS. Some of our team is on vacation, so we need you to take care of their pets. I don't remember what they eat, but whatever feed them <b>BE CONSISTENT</b>.", "<i>What an exciting internship this is looking to be . . .</i>"),
+  new Card(Image.OFFICE, AnswerType.ACCEPT, "Welcome to your internship at TODO FISHYFISHFISH LABS. Some of our team is on vacation, so we need you to take care of their pets. I'm not sure what they eat, but whatever you feed them <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>What an exciting internship this is looking to be . . .</i>"),
 	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What did I need to feed Goldie?"),
 	new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What did Steve's fish eat?"),
 	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?"),
@@ -174,8 +174,8 @@ function setButtonForNextCard(q) {
 		b.value = item;
 
 		b.onclick = function() {
-			// TEMP
-			$("#response-text").html(`<i>No, ${this.value} wasn't it<\i>`);
+      let ansLower = this.value.toLowerCase();
+			$("#response-text").html(`<i>\"Hmm, it wasn't ${ansLower}.\"<\i>`);
       progress -= 15;
       
       // If seen the wall, allow fish to be killed
@@ -200,7 +200,8 @@ function setButtonForNextCard(q) {
     b.value = q.answer;
 
     b.onclick = function() {
-      $("#response-text").html("Right it was " + q.answer);
+      let ansLower = q.answer.toLowerCase();
+      $("#response-text").html(`<i>"Right, it was ${ansLower}."</i>`);
       
       // add this q to the list
       answeredCards.push(q);
