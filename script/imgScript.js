@@ -7,6 +7,7 @@ let Image = {
 	ANGEL: 3,
 	SEAHORSE: 4,
   JELLY: 5,
+  BETTA: 6,
 	
 	path: {
 		0: PATH + "testImg.png",
@@ -15,6 +16,7 @@ let Image = {
     3: PATH + "angel.gif",
 		4: PATH + "seahorse.gif",
 		5: PATH + "jellies.gif",
+    6: PATH + "betta.gif",
 	}
 }
 

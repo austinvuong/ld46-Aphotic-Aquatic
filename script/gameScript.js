@@ -30,6 +30,7 @@ let deck = [
 	new Card("What did Steve's fish eat?", AnswerType.FISH_FOOD, Image.ANGEL),
 	new Card("What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?", AnswerType.FISH_FOOD, Image.SEAHORSE),
   new Card("What jelly want?", AnswerType.FISH_FOOD, Image.JELLY),
+  new Card("Hrmm .. what did the betta want?", AnswerType.FISH_FOOD, Image.BETTA),
 	new Card("It wants me to imagine", AnswerType.THOUGHT, Image.NULL),
   new Card("It wants me to visualize", AnswerType.THOUGHT, Image.NULL),
 	];
