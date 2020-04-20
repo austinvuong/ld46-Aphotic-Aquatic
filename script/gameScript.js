@@ -51,7 +51,7 @@ let AnswerType = {
 };
 
 let deck = [
-  new Card(Image.ROOM0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! With us, you’ll have the opportunity to learn about amazing and unusual fish. Caring for fish is a big part of the job - To start, we'll test how well you take care of your very own goldfish!<br>Based on our research fish only care about one thing: <b>consistency.</b> It doesn't matter what you feed them, just make sure you <b>remember</b> what it was, and always feed them the <b>same thing</b>!<br><br>Don't let us down.<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher","<i>I think I'll name you Goldie\"</i>"),
+  new Card(Image.ROOM0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! With us, you’ll have the opportunity to learn about amazing and unusual fish. Caring for fish is a big part of the job - To start, we'll test how well you take care of your very own goldfish!<br>Based on our research fish only care about one thing: <b>consistency.</b> It doesn't matter what you feed them, just make sure you <b>remember</b> what it was, and always feed them the <b>same thing</b>!<br><br>Don't let us down.<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher","<i>/"I think I'll name you Goldie\"</i>"),
 	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What do I need to feed Goldie?"),
 
   new Card(Image.ROOM1, AnswerType.STORY, "Some of our team is going on vacation. If you could just take care of their pets while their gone that'd be great. Not sure what they <b>eat</b> but <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"What an exciting internship this is looking to be . . .\"</i>"),
