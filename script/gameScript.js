@@ -15,23 +15,35 @@ let AnswerType = {
 	FISH: 1,
 	FISH_FOOD: 2,
 	THOUGHT: 3,
+  ACCEPT: 4,
 	
 	properties: {
 		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]},
 		
 		2: {items: ["Flakes", "Stick-on tablets", "Sinking pellets", "Bloodwoorms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Crisps", ]},
 		
-		3: {items: ["Tranquility", "Calamity", "Serenity", "Ruin", "Annihilation", "Bliss"]}
+		3: {items: ["Tranquility", "Calamity", "Serenity", "Ruin", "Annihilation", "Bliss"]},
+    
+    4: {items: ["Okay.", "Okay..", "Okay...", "Okay....",]}
 	}
 };
 
 let deck = [
+  new Card("Oh bother I've been give some fish to care for", AnswerType.ACCEPT, Image.OFFICE),
 	new Card("What did I need to feed Goldie?", AnswerType.FISH_FOOD, Image.GOLDIE),
 	new Card("What did Steve's fish eat?", AnswerType.FISH_FOOD, Image.ANGEL),
 	new Card("What nutrients does Dr. Q&#9608&#9608&#9608&#9608&#9608's fish require?", AnswerType.FISH_FOOD, Image.SEAHORSE),
+  
+  new Card("Someone just dropped off another one", AnswerType.ACCEPT, Image.OFFICE),
   new Card("What jelly want?", AnswerType.FISH_FOOD, Image.JELLY),
+  
+  new Card("Oh another one", AnswerType.ACCEPT, Image.OFFICE),
   new Card("Hrmm .. what did the betta want?", AnswerType.FISH_FOOD, Image.BETTA),
+  
+  new Card("This one seems ... different", AnswerType.ACCEPT, Image.OFFICE),
 	new Card("It wants me to imagine", AnswerType.THOUGHT, Image.NULL),
+  
+  new Card("It wants more", AnswerType.ACCEPT, Image.OFFICE),
   new Card("It wants me to visualize", AnswerType.THOUGHT, Image.NULL),
 	];
 
@@ -48,7 +60,7 @@ $(document).ready(function(){
   
   buttons.push($(".answer-button"));
   
-	newCards(3);
+	newCards(4); // welcome card + 3 fish
 });
 
 // count - the number of cards to init
@@ -58,7 +70,7 @@ function newCards(count) {
   if (count <= 0) {
     return;
   }
-  
+
   let b; // button
 	let exclusion = []; // is empty
 	
@@ -79,17 +91,24 @@ function newCards(count) {
     b.onclick = function() {
       // Store the response
       q.answer = this.value;
-      activeCards.push(q);
+      
+      // ignore ACCEPT cards, they're for story stuffs
+      if (q.answerType != AnswerType.ACCEPT) {
+        activeCards.push(q);
+      }
       
       // TEMP? show the response
       $("#response-text").html(q.answer + " it is then.");
         
       // return to the going cards
       count--;
+      console.log(count);
       if (count <= 0) {
+        console.log("Done with new cards");
         lastCard = q;
         nextCard();
       } else { // or add more
+        console.log("More to add");
         newCards(count); // ensure this -- somewhere
       }
     };
@@ -145,7 +164,7 @@ function setButtonForNextCard(q) {
 		
 		// if all active q's done, add a new one
 		if (answeredCards.length == activeCards.length) {
-			newCards(1);
+			newCards(2); // the "new fish" + the actual fish
 		} else {
 			nextCard();
 		}
