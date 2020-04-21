@@ -34,7 +34,7 @@ let AnswerType = {
 	properties: {
 		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]},
 		
-		2: {items: ["Tropical flakes", "Stick-on tablets", "Sinking pellets", "Bloodwoorms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Larvae", "Beef heart flakes", "Leafy greens", "Steak", "Chicken nugget"]},
+		2: {items: ["Tropical flakes", "Stick-on tablets", "Sinking pellets", "Bloodworms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Larvae", "Beef heart flakes", "Leafy greens", "Steak", "Chicken nugget"]},
 		
 		3: {items: [
           // positive
@@ -45,7 +45,7 @@ let AnswerType = {
           
           ]},
     
-    4: {items: ["Okay.", "Okay..", "Okay...", "Okay....", "Yikes.", "Sounds good.", "Can do!", "This sounds fun.",]},
+    4: {items: ["Okay.", "Yikes.", "Sounds good.", "Can do!", "This sounds fun.",]},
     
     5: {items: ["Oops.", "Oops..", "Oops...", "Oops....",]},
     
@@ -62,12 +62,11 @@ let deck = [
 
   new Card(Image.LETTER1, AnswerType.STORY, "Looks like you've managed to keep your goldfish alive, so onto better and bigger things! Dr. Stevens is headed out this week, so here's his Angelfish, <b>Angel</b>. Dr. Stevens studies music, and he wants you to sing for Angel every day. Well, just follow the Aphotic Aquatic slogan: \"Pick something and be consistent\"!<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher"),
   new Card(Image.ROOM1, AnswerType.STORY, "<i>\"I spent seven years getting PhD in marine biology, not music.\"</i>"),
-  new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Steve's fish eat?"),
+  new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Angel fish eat?"),
   new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to hear?"),
-  new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
+  new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Angel fish like to listen to?"),
  
- 
-  new Card(Image.LETTER2, AnswerType.STORY, "One more for you, Intern!<br><br>You’re doing amazing - even the Director’s heard your name around the building by now! Dr. Qtaro's headed out today, so take care of his seahorse, all right?<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher<br><br>"),
+  new Card(Image.LETTER2, AnswerType.STORY, "One more for you, Intern!<br><br>You’re doing amazing - even the Director’s heard your name around the building by now! Dr. Qtaro is taking sabbatical, so take care of his seahorse, all right?<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher<br><br>"),
   new Card(Image.ROOM2, AnswerType.STORY, "They're kind of cute."),
 	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What did I need to feed the seahorse?"),
   //new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
@@ -129,6 +128,7 @@ function newCards(count) {
   
   let rate;
   if (q.answerType == AnswerType.STORY) {
+    $("#response-text").html("");
     rate = timerStoryRate;
   } else {
     timerRate += timerRateInc;
