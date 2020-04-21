@@ -39,7 +39,7 @@ let Image = {
   LETTER4: 25,
   
 	path: {
-		0: PATH + "testImg.png",
+		0: PATH + "room.png", // TEMP
 		1: PATH + "room.png",
     
 		2: PATH + "goldie.gif",
