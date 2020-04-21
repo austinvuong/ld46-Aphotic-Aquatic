@@ -53,7 +53,7 @@ let Image = {
 		9: PATH + "room-2.png",
     10: PATH + "room-3.png",
 		11: PATH + "room-4.png",
-		12: PATH + "room-final.png",
+		12: PATH + "Room-Final.png",
     
 		13: PATH + "goldie-final.gif",
     14: PATH + "angel-final.gif",
