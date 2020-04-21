@@ -32,7 +32,7 @@ let AnswerType = {
 	properties: {
 		1: {items: ["Goldfish", "Carp", "Betta", "Catfish", "Cod", "Bass", "Pike", "Mackerel", "Sun Fish", "Guppie", "Tilapia", "M̶̻̓̄̐̏͝h̸̞̪̅͌̓̓ͅ'̶̨̬̤̽̈́█̷̢̜̱̞͑█̵̡̩̩̰̉͑͂͝█̷̖͔̣̮͗̌͜█̷̧͇͙͓̉͌ͅ'̶̣̼͓̮̜͊̀̊͌̀█̴̝͍̯̀̐̕█̴̜̤̭̣̟́█̷̨͚͇̻͔̇̾͌B̴̲̱̠̭̓"]},
 		
-		2: {items: ["Tropical flakes", "Stick-on tablets", "Sinking pellets", "Bloodwoorms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Larvae", "Beef heart flakes", "Leafy greens"]},
+		2: {items: ["Tropical flakes", "Stick-on tablets", "Sinking pellets", "Bloodwoorms", "Water fleas", "Brine shrimp", "Peas", "Floating pellets", "Larvae", "Beef heart flakes", "Leafy greens", "Steak", "Chicken nugget"]},
 		
 		3: {items: [
           // positive
@@ -54,33 +54,40 @@ let AnswerType = {
 };
 
 let deck = [
-  new Card(Image.ROOM0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! With us, you’ll have the opportunity to learn about amazing and unusual fish. Caring for fish is a big part of the job - To start, we'll test how well you take care of your very own goldfish!<br>Based on our research fish only care about one thing: <b>consistency.</b> It doesn't matter what you feed them, just make sure you <b>remember</b> what it was, and always feed them the <b>same thing</b>!<br><br>Don't let us down.<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher","<i>/"I think I'll name you Goldie\"</i>"),
+  new Card(Image.LETTER0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! With us, you’ll have the opportunity to learn about amazing and unusual fish. Caring for fish is a big part of the job - To start, we'll test how well you take care of your very own goldfish!<br>Based on our research fish only care about one thing: <b>consistency.</b> It doesn't matter what you feed them, just make sure you <b>remember</b> what it was, and always feed them the <b>same thing</b>!<br><br>Don't let us down.<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher"),
+  new Card(Image.ROOM0, AnswerType.STORY, "<i>\"My office. I think I'll name you Goldie.\"</i>"),
 	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What do I need to feed Goldie?"),
 
-  new Card(Image.ROOM1, AnswerType.STORY, "Some of our team is going on vacation. If you could just take care of their pets while their gone that'd be great. Not sure what they <b>eat</b> but <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\"What an exciting internship this is looking to be . . .\"</i>"),
+  new Card(Image.LETTER1, AnswerType.STORY, "Hey there, Intern! <br>Looks like you've managed to keep your goldfish alive, so onto better and bigger things! Dr. Stevens is headed out this week, so here's his Angelfish, <b>Angel</b>. Dr. Stevens has been doing some kind of studies with music, and he insists that Angel can understand musical modes and latch onto them, so he wants you to sing for Angel every day. Well, just follow the Aphotic Aquatic slogan: \"Pick something and be consistent\"!<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher<br><br><br>P.S. This isn't an excuse to let your goldfish die, either. Maybe you should sing to it, too?"),
+  new Card(Image.ROOM1, AnswerType.STORY, "<i>\"I spent seven years getting PhD in marine biology, not music.\"</i>"),
   new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Steve's fish eat?"),
-  
-  new Card(Image.ROOM1, AnswerType.STORY, "Have you tried playing some <b>music</b> for your fish? Our own internal studies show that music can improve a fish's mood! Somehow they can distingish <b>muscal modes</b> and latch onto them. Just <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>\". . .\"</i>"),
   new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to hear?"),
- /* new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
+  new Card(Image.ANGEL, AnswerType.MUSIC_MODES, "What does Steve's fish like to listen to?"),
  
-  new Card(Image.ROOM2, AnswerType.STORY, "Here's another one for you!", "<i>\". . .\"</i>"),
+ 
+  new Card(Image.LETTER2, AnswerType.STORY, "One more for you, Intern!<br><br>You’re doing amazing - even the Director’s heard your name around the building by now! Dr. Qtaro's headed out today, so take care of his seahorse, all right?<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher<br><br>"),
+  new Card(Image.ROOM2, AnswerType.STORY, "They're kind of cute."),
 	new Card(Image.SEAHORSE, AnswerType.FISH_FOOD, "What did I need to feed the seahorse?"),
   //new Card(Image.SEAHORSE, AnswerType.MUSIC_MODES, "What does the seahorse listen to?"),
   
-  new Card(Image.ROOM3, AnswerType.STORY, "Dr. Qtaro is on leave for the next while. Please keep his jellies alive. <b>REMEMBER</b> and <b>BE CONSISTENT</b>.", "<i>. . .</i>"),
+  new Card(Image.LETTER3, AnswerType.STORY, "I’m about to get on a plane!<br>Take care of my jellyfish.<br><br>- Dr. Abyss"),
+  new Card(Image.ROOM3, AnswerType.STORY, "Where exactly am I supposed to keep putting all these tanks?"),
   new Card(Image.JELLY, AnswerType.FISH_FOOD, "What do I feed the jellies?"),
   //new Card(Image.JELLY, AnswerType.MUSIC_MODES, "What the jellies listen to?"),
   
-  new Card(Image.ROOM4, AnswerType.STORY, "From Director K&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608, <br> Please tend to the needs of my betta fish. You must play &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608 for it and feed it &#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608&#9608."),
+  new Card(Image.LETTER4, AnswerType.STORY, "Great work so far, Intern. You’ll go far.<br>Headed to █̷̘̳͇ͦ̏̚█̣̉█͕͙̘̪̫̖͇̈́̌̏̔́̉̚͟█̶̖̱͈͎̝̘͓█̤͉̥̬̋͐̽ͯ█̣̹̰͔͘█͎͇̯̭̉͑͗͒ with the family. Here’s my betta. <br><br>- Director Dr. K█ͤ͒̐█̅̔ͭ█̤̹̳̘͈̪̽ͨ̏ͧ͂̐█̬̲͎̭́̄̒͒█ͬ͊̓ͩ͒̾͗█̪̺͔̞͍̊͆͂̂̓, C.E.O."),
+  new Card(Image.ROOM4, AnswerType.STORY, "That. Is not a betta."),
   new Card(Image.BETTA, AnswerType.FISH_FOOD, "The betta. What does it eat?"),
   //new Card(Image.BETTA, AnswerType.MUSIC_MODES, "The betta. What does it like to hear?"),
-*/  
-  new Card(Image.ROOM_WALL, AnswerType.STORY,"This one seems ... different"),
-	new Card(Image.WALL, AnswerType.THOUGHT, "It wants me to imagine"),
+ 
+  new Card(Image.ROOM_WALL, AnswerType.STORY,"What’s this? The office wall has crumbled. It looks like there’s something… inside?"),
+	new Card(Image.WALL, AnswerType.THOUGHT, "I̺͑͌m̨ȁ̕g͕ͮin̓e̎̃̕.͑̅͛҉̝̮͎"),
   
-  new Card(Image.ROOM_WALL, AnswerType.STORY, "It wants more"),
-  new Card(Image.WALL, AnswerType.THOUGHT, "It wants me to visualize"),
+  new Card(Image.ROOM_WALL, AnswerType.STORY, "It wants more?"),
+  new Card(Image.WALL, AnswerType.THOUGHT, "E̫͎̲n͂̓̓v̧͈̬is̬̓i̳ͩo̭͌n̂҉.͒"),
+  
+  new Card(Image.ROOM_WALL, AnswerType.STORY, "It wants more?"),
+  new Card(Image.WALL, AnswerType.THOUGHT, "V͈̔͒î̌̅sͤ̅͘uaͨ͘l͔͊i̔͒̍z̸̀ͣeͥͫ͜.҉"),
 	];
 
 // Card object
@@ -115,8 +122,7 @@ function newCards(count) {
 	
 	let q = deck.shift();
   
-  // TEMP
-	$("#question-text").html("%NEWCARD " + q.cardText);
+	$("#question-text").html(q.cardText);
 	setImageTo(q.img);
   
   let rate;
@@ -149,7 +155,7 @@ function newCards(count) {
         $("#response-text").html(q.responseText);
         // don't put them in the hand
       } else {
-        $("#response-text").html(`<i>${q.answer} it is then.</i>`);
+        $("#response-text").html(`\"<i>${q.answer} it is then.</i>\"`);
         playRandomBloop();
         activeCards.push(q);
         count--; // only if the card is not story
@@ -231,6 +237,7 @@ function setButtonForNextCard(q) {
       progress /= 1.4; // the less time, the less the penalty
       
       // If seen the wall, allow fish to be killed
+      /*
       if (hasReachedDarkness) {
         q.cardText = "Oh . . . it's dead."
         q.answerType = AnswerType.OOPS;
@@ -242,7 +249,7 @@ function setButtonForNextCard(q) {
         // TEMP you're fired!
         console.log("You fed it " + this.value + "?! It only eats " + q.answer + "!! You're fired!");
       }
-      
+      */
 		};
 	}
 	
@@ -283,8 +290,7 @@ function startTimer(rate) {
     if (progress < -5) { // a little coyote time
       $("#timerBar").width(progress + "%"); // force it (in case of progress jumps)
       clearInterval(interval);
-      // TODO
-      console.log("You are fired and/or fried!");
+      
       if (hasReachedDarkness) {
         showFriedCard();
       } else {
@@ -305,15 +311,16 @@ function startTimer(rate) {
 function showFiredCard() {
   let exclusion = [];
   
-	$("#question-text").html("You\'re are fired!");
-	setImageTo(Image.NULL);
+  setImageTo(Image.FAIL_MINOR);
+	$("#question-text").html("");
+  $("#response-text").html("");
 
   for (let i = 0; i < 4; i++) {
     
     b = buttons[0][i];
 
     let item = getRandomOfType(AnswerType.RETRY, exclusion);
-    exlucions.push(item);
+    exclusion.push(item);
     
     b.value = item;
     
@@ -329,15 +336,16 @@ function showFiredCard() {
 function showFriedCard() {
   let exclusion = [];
   
-	$("#question-text").html("You\'re are fired!");
-	setImageTo(Image.NULL);
+  setImageTo(Image.FAIL_MAJOR);
+	$("#question-text").html("");
+  $("#response-text").html("");
 
   for (let i = 0; i < 4; i++) {
     
     b = buttons[0][i];
 
     let item = getRandomOfType(AnswerType.RETRY, exclusion);
-    exlucions.push(item);
+    exclusion.push(item);
     
     b.value = item;
     
