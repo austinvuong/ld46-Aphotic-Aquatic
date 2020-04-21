@@ -27,6 +27,17 @@ let Image = {
   BETTA2: 17, 
   WALL: 18,
   
+  // Fail
+  FAIL_MINOR: 19,
+  FAIL_MAJOR: 20,
+  
+  // Letters
+  LETTER0: 21,
+  LETTER1: 22,
+  LETTER2: 23,
+  LETTER3: 24,
+  LETTER4: 25,
+  
 	path: {
 		0: PATH + "testImg.png",
 		1: PATH + "room.png",
@@ -50,6 +61,15 @@ let Image = {
 		16: PATH + "jellies-final.gif",
     17: PATH + "betta-final.gif",
     18: PATH + "finalfish.gif",
+    
+    19: PATH + "fired.png",
+    20: PATH + "bigfired.gif",
+    
+    20: PATH + "letter-0.png",
+    21: PATH + "letter-1.png",
+    22: PATH + "letter-2.png",
+    23: PATH + "letter-3.png",
+    24: PATH + "letter-4.png",
 	}
 }
 
