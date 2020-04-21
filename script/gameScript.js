@@ -18,6 +18,8 @@ let timerStoryRate = 0.001;
 let timerRate = 0.01;
 let timerRateInc = 0.003;
 
+let goodClicks = 0;
+
 // Answer types
 let AnswerType = {
 	NULL: 0,
@@ -263,6 +265,8 @@ function setButtonForNextCard(q) {
       $("#response-text").html(`<i>"Right, it was ${ansLower}."</i>`);
       playRandomBloop();
       
+      goodClicks++;
+      
       // add this q to the list
       answeredCards.push(q);
       lastCard = q;
@@ -296,6 +300,9 @@ function startTimer(rate) {
       } else {
         showFiredCard();
       }
+      
+      alert(`You sucessfully provided for the fish* ${goodClicks} times.`);
+      goodClicks = 0;
     } else {
       if (progress < 10) {
         playFalling(); // play a Shepherd's tone
