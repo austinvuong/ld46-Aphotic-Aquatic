@@ -65,11 +65,11 @@ let Image = {
     19: PATH + "fired.png",
     20: PATH + "bigfired.gif",
     
-    20: PATH + "letter-0.png",
-    21: PATH + "letter-1.png",
-    22: PATH + "letter-2.png",
-    23: PATH + "letter-3.png",
-    24: PATH + "letter-4.png",
+    21: PATH + "letter-0.png",
+    22: PATH + "letter-1.png",
+    23: PATH + "letter-2.png",
+    24: PATH + "letter-3.png",
+    25: PATH + "letter-4.png",
 	}
 }
 
