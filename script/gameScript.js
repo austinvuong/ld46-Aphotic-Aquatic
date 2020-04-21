@@ -54,11 +54,11 @@ let AnswerType = {
 };
 
 let deck = [
-  new Card(Image.LETTER0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! With us, you’ll have the opportunity to learn about amazing and unusual fish. Caring for fish is a big part of the job - To start, we'll test how well you take care of your very own goldfish!<br>Based on our research fish only care about one thing: <b>consistency.</b> It doesn't matter what you feed them, just make sure you <b>remember</b> what it was, and always feed them the <b>same thing</b>!<br><br>Don't let us down.<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher"),
+  new Card(Image.LETTER0, AnswerType.STORY, "Warm salutations to our newest intern at Aphotic Aquatic! Caring for fish is a big part of the job - To start, we'll test how you care for your very own goldfish!<br><br>Based on our research fish only care about one thing: consistency. <b>Remember</b> what you feed them, and always feed them the <b>same thing</b>!<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher"),
   new Card(Image.ROOM0, AnswerType.STORY, "<i>\"My office. I think I'll name you Goldie.\"</i>"),
 	new Card(Image.GOLDIE, AnswerType.FISH_FOOD, "What do I need to feed Goldie?"),
 
-  new Card(Image.LETTER1, AnswerType.STORY, "Hey there, Intern! <br>Looks like you've managed to keep your goldfish alive, so onto better and bigger things! Dr. Stevens is headed out this week, so here's his Angelfish, <b>Angel</b>. Dr. Stevens has been doing some kind of studies with music, and he insists that Angel can understand musical modes and latch onto them, so he wants you to sing for Angel every day. Well, just follow the Aphotic Aquatic slogan: \"Pick something and be consistent\"!<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher<br><br><br>P.S. This isn't an excuse to let your goldfish die, either. Maybe you should sing to it, too?"),
+  new Card(Image.LETTER1, AnswerType.STORY, "Looks like you've managed to keep your goldfish alive, so onto better and bigger things! Dr. Stevens is headed out this week, so here's his Angelfish, <b>Angel</b>. Dr. Stevens studies music, and he wants you to sing for Angel every day. Well, just follow the Aphotic Aquatic slogan: \"Pick something and be consistent\"!<br><br>- Dr. Abby \"Abyss\" Evans, Senior Researcher"),
   new Card(Image.ROOM1, AnswerType.STORY, "<i>\"I spent seven years getting PhD in marine biology, not music.\"</i>"),
   new Card(Image.ANGEL, AnswerType.FISH_FOOD, "What does Steve's fish eat?"),
   new Card(Image.GOLDIE, AnswerType.MUSIC_MODES, "What does Goldie like to hear?"),
@@ -327,7 +327,6 @@ function showFiredCard() {
     console.log(b.value);
 
     b.onclick = function() {
-      // Store the response
       playRandomBloop();
     };
   }
@@ -352,7 +351,6 @@ function showFriedCard() {
     console.log(b.value);
 
     b.onclick = function() {
-      // Store the response
       playRandomBloop();
     };
   }
