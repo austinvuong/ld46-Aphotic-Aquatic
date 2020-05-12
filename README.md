@@ -1,6 +1,4 @@
-Made in 72 hours for Ludum Dare 46.
-
-Ludum Dare Page: https://ldjam.com/events/ludum-dare/46/aphotic-aquatic
+Made in 72 hours for [Ludum Dare 46](https://ldjam.com/events/ludum-dare/46/aphotic-aquatic).
 
 Play it here! (web): https://qcs.itch.io/aphotic-aquatic
 
