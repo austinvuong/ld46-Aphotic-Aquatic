@@ -10,5 +10,6 @@ Congratulations on your internship with world renowned marine biology institute,
 
 Embark on a memory game wherein you try to remember how to take care of your coworkers' fish, featuring gameplay mechanics inspired by: [Indefinite: Interrogation - Memory, Story, Choices](https://play.google.com/store/apps/details?id=air.me.brandlibel.indefinite) by Brandon Li.
 
-Coding by: me 
+Coding by: me
+
 Art assets by: Briibot [Twitter](https://twitter.com/BriiLeaf)
